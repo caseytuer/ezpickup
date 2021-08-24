@@ -5,9 +5,11 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 
-from .models import db, User, Game, Player, Comment
+from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.games_routes import games_routes
+from .api.players_routes import players_routes
 
 from .seeds import seed_commands
 
@@ -31,6 +33,9 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(games_routes, url_prefix='/api/games')
+app.register_blueprint(players_routes, url_prefix='/api/players')
+
 db.init_app(app)
 Migrate(app, db)
 
