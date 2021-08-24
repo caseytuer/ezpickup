@@ -18,6 +18,33 @@ def get_single_game(id):
     return single_game.to_dict()
 
 
+@games_routes.route('/', methods=['POST'])
+def create_game():
+    form = GameForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        game = Game(
+            title = form.title.data,
+            sport = form.sport.data,
+            description = form.description.data,
+            equipment_needed = form.equipment_needed.data,
+            skill_level = form.skill_level.data,
+            address = form.address.data,
+            city = form.city.data,
+            state = form.state.data,
+            country = form.country.data,
+            lat = form.lat.data,
+            lng = form.lng.data,
+            start_time = form.start_time.data,
+            end_time = form.end_time.data
+        )
+        db.session.add(game)
+        db.session.commit()
+        return game.to_dict()
+    else:
+        return {'error': 'something went wrong'}, 401
+
+
 @games_routes.route('/<int:id>', methods=['PUT'])
 def edit_game(id):
     form = GameForm()   # need form
@@ -53,29 +80,3 @@ def delete_game(id):
     else:
         return {'message': 'Something went wrong'}, 404
 
-
-@games_routes.route('/', methods=['POST'])
-def create_game():
-    form = GameForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        game = Game(
-            title = form.title.data,
-            sport = form.sport.data,
-            description = form.description.data,
-            equipment_needed = form.equipment_needed.data,
-            skill_level = form.skill_level.data,
-            address = form.address.data,
-            city = form.city.data,
-            state = form.state.data,
-            country = form.country.data,
-            lat = form.lat.data,
-            lng = form.lng.data,
-            start_time = form.start_time.data,
-            end_time = form.end_time.data
-        )
-        db.session.add(game)
-        db.session.commit()
-        return game.to_dict()
-    else:
-        return {'error': 'something went wrong'}, 401
