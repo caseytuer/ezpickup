@@ -4,15 +4,27 @@ from app.models import db, User
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password')
+        full_name='Demo User', username='Demo', email='demo@aa.io', password='password')
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        full_name='Marnie Marnson', username='marnie', email='marnie@aa.io', password='password')
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        full_name='Bobby Brackins', username='bobbie', email='bobbie@aa.io', password='password')
+    black_mamba = User(
+        full_name='Kobe Bryant', username='black_mamba', email='rip_kobe@gmail.com', password='password'
+    )
+    jordan_the_goat = User(
+        full_name='Michael Jordan', username='jordan_the_goat', email='michaeljordan@gmail.com', password='password'
+    )
+    lebrons_hairline = User(
+        full_name='Lebron James', username='lebrons_hairline', email='lb_james@gmail.com', password='password'
+    )
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(black_mamba)
+    db.session.add(jordan_the_goat)
+    db.session.add(lebrons_hairline)
 
     db.session.commit()
 
