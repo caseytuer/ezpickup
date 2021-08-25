@@ -36,16 +36,17 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        <ProtectedRoute path='/users' exact={true}>
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <ProtectedRoute path='/users/:userId' exact={true}>
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <Games />
           <GameForm />
         </Route>
+        <Route path='/games/:gameId' exact={true} ></Route>
       </Switch>
     </BrowserRouter>
   );
