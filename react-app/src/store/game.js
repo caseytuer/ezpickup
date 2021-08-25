@@ -62,6 +62,21 @@ export const createGame = (payload) => async (dispatch) => {
     }
 }
 
+export const updateGame = (payload) => async (dispatch) => {
+    const response = await fetch(`/api/games/${payload.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        const game = await response.json();
+        await dispatch(editGame(game));
+        return game;
+    } else {
+        return ['An error occurred, please try again']
+    }
+}
+
 export default function reducer(state = {}, action) {
     let newState = {}
     switch (action.type) {
@@ -77,7 +92,10 @@ export default function reducer(state = {}, action) {
             if (!state[action.game.id]) {
                 newState = { ...state, [action.game.id]: action.game }
             }
-            return newState
+            return newState;
+        case EDIT_GAME:
+            newState[action.game.id] = action.game;
+            return newState;
         default:
             return state;
     }

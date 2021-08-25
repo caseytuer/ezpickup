@@ -9,11 +9,12 @@ const Games = () => {
     const dispatch = useDispatch()
     const games = useSelector(state => state.game)
 
+    
     let gamesArr = [];
     for (let key in games) {
         gamesArr.push(games[key])
     }
-    
+
 
     useEffect(() => {
         dispatch(getAllGames())
