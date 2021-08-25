@@ -36,7 +36,7 @@ export const getGame = (id) => async (dispatch) => {
 }
 
 export const getAllGames = () => async (dispatch) => {
-    const response = await fetch(`/api/games`)
+    const response = await fetch(`/api/games/`)
     const data = await response.json();
 
     if (response.ok) {
