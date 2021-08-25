@@ -22,9 +22,9 @@ const Games = () => {
 
     return (
         <div>
-            {gamesArr.map(game => 
+            {gamesArr.map((game, idx) => 
             <>
-                <div className="game-container">
+                <div key={idx} className="game-container">
                     <div>{game.title}</div>
                     <div>{game.sport}</div>
                     <div>{game.description}</div>

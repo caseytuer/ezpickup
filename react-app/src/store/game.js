@@ -1,5 +1,7 @@
 const SET_GAME = 'games/setGames';
-const SET_ALL_GAMES = 'games/setAllGames'
+const SET_ALL_GAMES = 'games/setAllGames';
+const ADD_GAME = 'games/addGame';
+const EDIT_GAME = 'games/editGame';
 
 const setGame = (game) => ({
     type: SET_GAME,
@@ -8,11 +10,21 @@ const setGame = (game) => ({
 
 const setAllGames = (games) => ({
     type: SET_ALL_GAMES,
-    games
+    games,
+})
+
+const addGame = (game) => ({
+    type: ADD_GAME,
+    game,
+})
+
+const editGame = (game) => ({
+    type: EDIT_GAME,
+    game,
 })
 
 export const getGame = (id) => async (dispatch) => {
-    const response = await fetch(`/api/games/${id}`);
+    const response = await fetch(`/api/games${id}`);
     const data = await response.json();
 
     if (response.ok) {
@@ -35,6 +47,21 @@ export const getAllGames = () => async (dispatch) => {
     }
 }
 
+export const createGame = (payload) => async (dispatch) => {
+    const response = await fetch(`/api/games/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify( payload ),
+    });
+    if (response.ok) {
+        const game = await response.json();
+        await dispatch(addGame(game));
+        return game
+    } else {
+        return ['An error occurred, please try again']
+    }
+}
+
 export default function reducer(state = {}, action) {
     let newState = {}
     switch (action.type) {
@@ -46,6 +73,11 @@ export default function reducer(state = {}, action) {
                 newState[game.id] = game;
             });
             return { ...state, ...newState };
+        case ADD_GAME:
+            if (!state[action.game.id]) {
+                newState = { ...state, [action.game.id]: action.game }
+            }
+            return newState
         default:
             return state;
     }

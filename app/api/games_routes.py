@@ -1,10 +1,31 @@
 from flask import Blueprint, request
-from flask_login import current_user
+from flask_login import login_required
 from app.models import Game, db
+from app.forms import GameForm
+
 
 
 games_routes = Blueprint('games', __name__)
 
+#############################################################
+
+def validation_errors_to_error_messages(validation_errors):
+    # helper function to collect and display errors
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{field} : {error}')
+    return errorMessages
+
+
+def authorization_errors_to_error_messages(message="unauthorized user"):
+    return {'errors': message}, 401
+
+
+def input_errors_to_error_messages(message="incorrect input"):
+    return {'errors': message}, 401
+
+#############################################################
 
 @games_routes.route('/', methods=['GET'])
 def get_all_games():
@@ -12,18 +33,15 @@ def get_all_games():
     return {'games': [game.to_dict() for game in all_games]}
 
 
-@games_routes.route('/<int:id>', methods=['GET'])
-def get_single_game(id):
-    single_game = Game.query.get(id)
-    return single_game.to_dict()
-
-
 @games_routes.route('/', methods=['POST'])
+# @login_required
 def create_game():
     form = GameForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
     if form.validate_on_submit():
         game = Game(
+            creator_id = form.creator_id.data,
             title = form.title.data,
             sport = form.sport.data,
             description = form.description.data,
@@ -42,7 +60,15 @@ def create_game():
         db.session.commit()
         return game.to_dict()
     else:
-        return {'error': 'something went wrong'}, 401
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@games_routes.route('/<int:id>', methods=['GET'])
+def get_single_game(id):
+    single_game = Game.query.get(id)
+    return single_game.to_dict()
+
+
 
 
 @games_routes.route('/<int:id>', methods=['PUT'])
