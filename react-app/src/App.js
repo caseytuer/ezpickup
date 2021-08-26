@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import Game from './components/Game';
 import Games from './components/Games';
 import GameForm from './components/GameForm';
 
@@ -46,7 +47,9 @@ function App() {
           <Games />
           <GameForm />
         </Route>
-        <Route path='/games/:gameId' exact={true} ></Route>
+        <Route path='/games/:gameId' exact={true} >
+          <Game />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

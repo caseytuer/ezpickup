@@ -2,6 +2,7 @@ const SET_GAME = 'games/setGames';
 const SET_ALL_GAMES = 'games/setAllGames';
 const ADD_GAME = 'games/addGame';
 const EDIT_GAME = 'games/editGame';
+const REMOVE_GAME = 'games/removeGame'
 
 const setGame = (game) => ({
     type: SET_GAME,
@@ -23,8 +24,13 @@ const editGame = (game) => ({
     game,
 })
 
+const removeGame = (game) => ({
+    type: REMOVE_GAME,
+    game
+})
+
 export const getGame = (id) => async (dispatch) => {
-    const response = await fetch(`/api/games${id}`);
+    const response = await fetch(`/api/games/${id}/`);
     const data = await response.json();
 
     if (response.ok) {
@@ -63,17 +69,30 @@ export const createGame = (payload) => async (dispatch) => {
 }
 
 export const updateGame = (payload) => async (dispatch) => {
-    const response = await fetch(`/api/games/${payload.id}`, {
+    const response = await fetch(`/api/games/${payload.id}/`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     });
+    console.log(response)
     if (response.ok) {
         const game = await response.json();
         await dispatch(editGame(game));
         return game;
     } else {
         return ['An error occurred, please try again']
+    }
+}
+
+export const deleteGame = (id) => async (dispatch) => {
+    const response = await fetch(`/api/games/${id}`, {
+        method: 'DELETE',
+    })
+    if (response.ok) {
+        await dispatch(removeGame(id));
+        return response
+    } else {
+        return ['An error occured, please try again']
     }
 }
 
@@ -95,6 +114,10 @@ export default function reducer(state = {}, action) {
             return newState;
         case EDIT_GAME:
             newState[action.game.id] = action.game;
+            return newState;
+        case REMOVE_GAME:
+            newState = { ...state };
+            delete newState[action.game];
             return newState;
         default:
             return state;
