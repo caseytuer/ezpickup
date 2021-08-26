@@ -63,7 +63,7 @@ def create_game():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-@games_routes.route('/<int:id>', methods=['GET'])
+@games_routes.route('/<int:id>/', methods=['GET'])
 def get_single_game(id):
     single_game = Game.query.get(id)
     return single_game.to_dict()
@@ -71,29 +71,30 @@ def get_single_game(id):
 
 
 
-@games_routes.route('/<int:id>', methods=['PUT'])
+@games_routes.route('/<int:id>/', methods=['PUT'])
 def edit_game(id):
     form = GameForm()   # need form
+    # print(f'-------------------------{form.title.data}')
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         game = Game.query.get(id)
-        game.title = form.game.title
-        game.sport = form.game.sport
-        game.description = form.game.description
-        game.equipment_needed = form.game.equipment_needed
-        game.skill_level = form.game.skill_level
-        game.address = form.game.address
-        game.city = form.game.city
-        game.state = form.game.state
-        game.country = form.game.country
-        game.lat = form.game.lat
-        game.lng = form.game.lng
-        game.start_time = form.game.start_time
-        game.end_time = form.game.end_time
+        game.title = form.title.data
+        game.sport = form.sport.data
+        game.description = form.description.data
+        game.equipment_needed = form.equipment_needed.data
+        game.skill_level = form.skill_level.data
+        game.address = form.address.data
+        game.city = form.city.data
+        game.state = form.state.data
+        game.country = form.country.data
+        game.lat = form.lat.data
+        game.lng = form.lng.data
+        game.start_time = form.start_time.data
+        game.end_time = form.end_time.data
         db.session.commit()
         return game.to_dict()
     else:
-        return {'error': 'Something went wrong'}, 404
+        return {'error': 'Something went wrong'}, 405
 
 
 @games_routes.route('/<int:id>', methods=['DELETE'])
