@@ -99,7 +99,7 @@ export const GameForm = () => {
                 <div>
                     <label>title</label>
                     <input 
-                        placeholder='title'
+                        placeholder="title"
                         required
                         value={title}
                         onChange={setTitleETV}
