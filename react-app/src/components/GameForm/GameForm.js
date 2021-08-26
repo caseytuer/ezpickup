@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createGame } from '../../store/game';
+import DateTime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css'
 
 
 export const GameForm = () => {
@@ -21,8 +23,8 @@ export const GameForm = () => {
     const [country, setCountry] = useState('');
     const [lat, setLat] = useState(0);
     const [lng, setLng] = useState(0);
-    const [startTime, setStartTime] = useState('2021-12-16 12:12:00');
-    const [endTime, setEndTime] = useState('2021-12-16 12:12:00')
+    const [startTime, setStartTime] = useState('');
+    const [endTime, setEndTime] = useState('')
     const [errors, setErrors] = useState([])
 
     const setTitleETV = (e) => setTitle(e.target.value);
@@ -36,8 +38,8 @@ export const GameForm = () => {
     const setCountryETV = (e) => setCountry(e.target.value)
     const setLatETV = (e) => setLat(e.target.value)
     const setLngETV = (e) => setLng(e.target.value)
-    // const setStartTimeETV = (e) => setStartTime(e.target.value)
-    // const setEndTimeETV = (e) => setEndTime(e.target.value)
+    const setStartTimeETV = (e) => setStartTime(e.target.value)
+    const setEndTimeETV = (e) => setEndTime(e.target.value)
 
     const onFormSubmit = (e) => {
         e.preventDefault();
@@ -58,21 +60,20 @@ export const GameForm = () => {
         console.log(endTime)
         // 
         const payload = {
-            creator_id: userId,
-            title: title,
-            sport: sport,
-            description: description,
-            equipment_needed: equipmentNeeded,
-            skill_level: skillLevel,
-            address: address,
-            city: city,
-            state: state,
-            country: country,
+            creator_id: String(userId),
+            title: String(title),
+            sport: String(sport),
+            description: String(description),
+            equipment_needed: String(equipmentNeeded),
+            skill_level: String(skillLevel),
+            address: String(address),
+            city: String(city),
+            state: String(state),
+            country: String(country),
             lat: lat,
             lng: lng,
-            start_time: startTime,
-            end_time: endTime,
-            created_at: endTime
+            start_time: '2021-08-28 16:00:00',
+            end_time: '2021-08-28 16:00:00',
         }
         // setErrors([]);
         console.log(payload)
@@ -88,6 +89,23 @@ export const GameForm = () => {
         // })
     }
 
+    // const startTimeCalender = document.querySelector('start-time-calender')
+
+    const handleDateTime = (dateTime) => {
+        console.log(dateTime)
+        const units = String(dateTime).split(' ');
+        const calender = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        let year = units[3];
+        let day = units[2];
+        let time = units[4];
+        let month = String(calender.indexOf(units[1]) + 1);
+        return `${year}-${month}-${day} ${time}`
+    }
+
+    let inputProps = {
+        required: true
+    } 
+
     return (
         <div>
             <form onSubmit={onFormSubmit}>
@@ -99,8 +117,8 @@ export const GameForm = () => {
                 <div>
                     <label>title</label>
                     <input 
-                        placeholder="title"
                         required
+                        placeholder="title"
                         value={title}
                         onChange={setTitleETV}
                         type="text"
@@ -109,8 +127,8 @@ export const GameForm = () => {
                 <div>
                     <label>sport</label>
                     <input
+                        required
                         placeholder='sport'
-                        required={true}
                         value={sport}
                         onChange={setSportETV}
                     />
@@ -119,7 +137,6 @@ export const GameForm = () => {
                     <label>description</label>
                     <input
                         placeholder='description'
-                        required={true}
                         value={description}
                         onChange={setDescriptionETV}
                     />
@@ -128,7 +145,6 @@ export const GameForm = () => {
                     <label>equipment needed</label>
                     <input
                         placeholder='equipment needed'
-                        required={true}
                         value={equipmentNeeded}
                         onChange={setEquipmentNeededETV}
                     />
@@ -145,8 +161,8 @@ export const GameForm = () => {
                 <div>
                     <label>address</label>
                     <input
+                        required
                         placeholder='address'
-                        required={true}
                         value={address}
                         onChange={setAddressETV}
                     />
@@ -154,8 +170,8 @@ export const GameForm = () => {
                 <div>
                     <label>city</label>
                     <input
+                        required
                         placeholder='city'
-                        required={true}
                         value={city}
                         onChange={setCityETV}
                     />
@@ -163,8 +179,8 @@ export const GameForm = () => {
                 <div>
                     <label>state</label>
                     <input
+                        required
                         placeholder='state'
-                        required={true}
                         value={state}
                         onChange={setStateETV}
                     />
@@ -172,8 +188,8 @@ export const GameForm = () => {
                 <div>
                     <label>country</label>
                     <input
+                        required
                         placeholder='country'
-                        required={true}
                         value={country}
                         onChange={setCountryETV}
                     />
@@ -181,8 +197,8 @@ export const GameForm = () => {
                 <div>
                     <label>latitude</label>
                     <input
+                        required
                         placeholder='latitude'
-                        required={true}
                         value={lat}
                         onChange={setLatETV}
                     />
@@ -191,29 +207,41 @@ export const GameForm = () => {
                     <label>longitude</label>
                     <input
                         placeholder='lng'
-                        required={true}
+                        required
                         value={lng}
                         onChange={setLngETV}
                     />
                 </div>
-                <div>
+                {/* <div>
                     <label>start time</label>
                     <input
                         placeholder='start time'
                         required={true}
-                        value={startTime}
-                        // onChange={setStartTimeETV}
+                        // value={startTime}
+                        onChange={setStartTimeETV}
                     />
+                </div> */}
+                <div>
+                    start time<DateTime 
+                    inputProps={inputProps}
+                    onChange={value => setStartTime(handleDateTime(value._d))}/>
                 </div>
                 <div>
+                    end time<DateTime 
+                        inputProps={inputProps}
+                        onChange={value => {
+                            console.log(value);
+                            setEndTime(handleDateTime(value._d))}} />
+                </div>
+                {/* <div>
                     <label>end time</label>
                     <input
                         placeholder='end time'
                         required={true}
-                        value={endTime}
-                        // onChange={setEndTimeETV}
+                        // value={endTime}
+                        onChange={setEndTimeETV}
                     />
-                </div>
+                </div> */}
                 <div>
                     <button type="submit">Submit</button>
                 </div>
