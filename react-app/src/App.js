@@ -45,6 +45,8 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <Games />
+        </Route>
+        <Route path='/games/create' exact={true}>
           <GameForm />
         </Route>
         <Route path='/games/:gameId' exact={true} >

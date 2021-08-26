@@ -37,9 +37,16 @@ const NavBar = () => {
         </li>
         <li></li>
         {user &&
-        <li>
-          <LogoutButton />
-        </li>
+        <>
+          <li>
+            <NavLink to='/games/create'>
+              Create a Game
+            </NavLink>
+          </li>
+          <li>
+            <LogoutButton />
+          </li>
+        </>
         }
       </ul>
     </nav>
