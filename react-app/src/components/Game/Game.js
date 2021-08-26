@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getGame } from '../../store/game';
+import { useHistory, useParams } from 'react-router-dom';
+import { deleteGame, getGame } from '../../store/game';
 import { updateGame } from '../../store/game';
 import './Game.css'
 
@@ -9,6 +9,7 @@ import './Game.css'
 
 const Game = () => {
 
+    const history = useHistory();
     const dispatch = useDispatch();
     let { gameId } = useParams();
     const game = useSelector(state => state.game[gameId])
@@ -74,11 +75,17 @@ const Game = () => {
         // input.display = 'block';
         // editBtn.hidden = false;
     }
-
-    console.log(title)
+    
+    const handleDelete = () => {
+        const deleted = dispatch(deleteGame(gameId))
+        if (deleted) {
+            history.push('/')
+        }
+    }
 
     return (
         <div>
+            <button onClick={handleDelete}>delete game</button>
             <form onSubmit={handleEdit} className="game-card-field" id="game-card-title-edit-btn" >
                 <div>
                     <button type='submit'>edit</button>
