@@ -40,42 +40,45 @@ const Games = () => {
 
     return (
         <>
-            <div>
+            <div className="map-container">
                 <Map gamesArr={gamesArr}/>
             </div>
             <div className="games-container">
                 {gamesArr.map((game, idx) => 
                 <>
-                    <div key={idx} className="game-container">
-                        <div className="game-card-title">
-                            <Link to={`/games/${game.id}`}>
-                                {game.title}
-                            </Link>
+                    <div key={idx} className="game-container-wrapper">
+
+                        <div className="game-container">
+                            <div className="game-card-title">
+                                <Link to={`/games/${game.id}`}>
+                                    {game.title}
+                                </Link>
+                            </div>
+                            <div>
+                                <span>what we're playing: </span>
+                                <span className="game-answer">
+                                {game.sport}
+                                </span>
+                            </div>
+                            <div>
+                                <span>who's hosting? </span>
+                                <span className="game-answer">
+                                    {findGameCreatorUsername(game.creator_id)}
+                                </span>
+                            </div>
+                            <div>
+                                <span>time and date: </span>
+                                <span className="game-answer">{game.start_time}</span>
+                            </div>
+                            <div>
+                                <span>where at? </span>
+                                <span className="game-answer">{game.address}, </span>
+                                <span className="game-answer">{game.city}, </span>
+                                <span className="game-answer">{game.state}</span>
+                            </div>
+                            <div>{game.description}</div>
+                            <div>{game.equipment_needed}</div>
                         </div>
-                        <div>
-                            <span>what we're playing: </span>
-                            <span className="game-answer">
-                            {game.sport}
-                            </span>
-                        </div>
-                        <div>
-                            <span>who's hosting? </span>
-                            <span className="game-answer">
-                                {findGameCreatorUsername(game.creator_id)}
-                            </span>
-                        </div>
-                        <div>
-                            <span>time and date: </span>
-                            <span className="game-answer">{game.start_time}</span>
-                        </div>
-                        <div>
-                            <span>where at? </span>
-                            <span className="game-answer">{game.address}, </span>
-                            <span className="game-answer">{game.city}, </span>
-                            <span className="game-answer">{game.state}</span>
-                        </div>
-                        <div>{game.description}</div>
-                        <div>{game.equipment_needed}</div>
                     </div>
                 </>    
                 )}

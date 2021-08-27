@@ -1,31 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { createGame } from '../../store/game';
+import { useHistory, useParams } from 'react-router-dom';
+import { createGame, updateGame } from '../../store/game';
 import DateTime from 'react-datetime';
 import './GameForm.css'
 import 'react-datetime/css/react-datetime.css'
 
 
-export const GameForm = () => {
+export const GameFormEdit = () => {
 
-    const dispatch = useDispatch();
     const history = useHistory();
+    const dispatch = useDispatch();
+    let { gameId } = useParams();
+    const game = useSelector(state => state.game[gameId])
     const userId = useSelector((state) => state.session.user?.id);
 
-    const [title, setTitle] = useState('');
-    const [sport, setSport] = useState('');
-    const [description, setDescription] = useState('');
-    const [equipmentNeeded, setEquipmentNeeded] = useState('');
-    const [skillLevel, setSkillLevel] = useState(4);
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [country, setCountry] = useState('');
-    const [lat, setLat] = useState();
-    const [lng, setLng] = useState();
-    const [startTime, setStartTime] = useState('');
-    const [endTime, setEndTime] = useState('')
+    console.log(game)
+
+    const [title, setTitle] = useState(game.title);
+    const [sport, setSport] = useState(game.sport);
+    const [description, setDescription] = useState(game.description);
+    const [equipmentNeeded, setEquipmentNeeded] = useState(game.equipment_needed);
+    const [skillLevel, setSkillLevel] = useState(game.skill_level);
+    const [address, setAddress] = useState(game.address);
+    const [city, setCity] = useState(game.city);
+    const [state, setState] = useState(game.state);
+    const [country, setCountry] = useState(game.country);
+    const [lat, setLat] = useState(game.lat);
+    const [lng, setLng] = useState(game.lng);
+    const [startTime, setStartTime] = useState(game.start_time);
+    const [endTime, setEndTime] = useState(game.end_time)
     const [errors, setErrors] = useState([])
 
     const setTitleETV = (e) => setTitle(e.target.value);
@@ -39,13 +43,12 @@ export const GameForm = () => {
     const setCountryETV = (e) => setCountry(e.target.value)
     const setLatETV = (e) => setLat(e.target.value)
     const setLngETV = (e) => setLng(e.target.value)
-    const setStartTimeETV = (e) => setStartTime(e.target.value)
-    const setEndTimeETV = (e) => setEndTime(e.target.value)
 
     const onFormSubmit = (e) => {
         e.preventDefault();
 
         const payload = {
+            id: game.id,
             creator_id: String(userId),
             title: String(title),
             sport: String(sport),
@@ -63,16 +66,16 @@ export const GameForm = () => {
         }
         setErrors([]);
         console.log(payload)
-        dispatch(createGame(payload))
-        .then( (data) => {
-            if (data && data.id) {
-                history.push(`/games/${data.id}`);
-                window.location.reload();
-            }
-        }).catch(async (res) => {
-            const data = res;
-            if (data && data.errors) setErrors(data.errors);
-        })
+        dispatch(updateGame(payload))
+            .then((data) => {
+                if (data && data.id) {
+                    history.push(`/games/${data.id}`);
+                    window.location.reload();
+                }
+            }).catch(async (res) => {
+                const data = res;
+                if (data && data.errors) setErrors(data.errors);
+            })
     }
 
     // const startTimeCalender = document.querySelector('start-time-calender')
@@ -92,7 +95,7 @@ export const GameForm = () => {
         required: true,
         placeholder: 'Start Time',
         className: "form-input-field",
-    } 
+    }
 
     let inputPropsEnd = {
         required: true,
@@ -105,7 +108,7 @@ export const GameForm = () => {
             <div className="form-container">
                 <form onSubmit={onFormSubmit}>
                     <ul>
-                        {errors.map((error, idx) => 
+                        {errors.map((error, idx) =>
                             <li key={idx}>{error}</li>)}
                     </ul>
                     <div>
@@ -153,16 +156,17 @@ export const GameForm = () => {
                         </select>
                     </div>
                     <div>
-                        <DateTime 
-                        inputProps={inputPropsStart}
-                        onChange={value => setStartTime(handleDateTime(value._d))}/>
+                        <DateTime
+                            inputProps={inputPropsStart}
+                            onChange={value => setStartTime(handleDateTime(value._d))} />
                     </div>
                     <div>
-                        <DateTime 
+                        <DateTime
                             inputProps={inputPropsEnd}
                             onChange={value => {
                                 console.log(value);
-                                setEndTime(handleDateTime(value._d))}} />
+                                setEndTime(handleDateTime(value._d))
+                            }} />
                     </div>
                     <div>
                         <input
@@ -219,10 +223,10 @@ export const GameForm = () => {
                         />
                     </div>
                     <div>
-                        <button 
+                        <button
                             type="submit"
                             className="form-btn"
-                            >Submit
+                        >Submit
                         </button>
                     </div>
                 </form>
@@ -231,4 +235,4 @@ export const GameForm = () => {
     )
 }
 
-export default GameForm;
+export default GameFormEdit;

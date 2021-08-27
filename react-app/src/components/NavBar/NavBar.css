@@ -1,15 +1,15 @@
 .navbar-ul {
     display: flex;
-    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
     font-size: 15px;
-    margin-bottom: 10px;
 }
 
 .navbar-container {
-    justify-content: space-between;
-    display: flex;
+    /* display: flex; */
     align-items: center;
-    height: 65px;
+    justify-content: space-between;
+    height: auto;
     top: 0;
     border-bottom: black .5px solid;
     position: fixed;
@@ -20,7 +20,9 @@
 }
 
 .navbar-logo {
-    width: 70px;
+    width: 80px;
+    margin: 5px;
+    margin-left: 20px;
 }
 
 .create-and-logout-container {
@@ -34,6 +36,7 @@
 
 .navbar-signup-btn {
     margin-left: 15px;
+    margin-right: 20px;
 }
 
 .navbar-logout-btn:hover {

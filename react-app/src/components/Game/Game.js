@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 import './Game.css'
 import bannerImage from '../../assets/images/bball-sillouette.png';
 import Map from '../Map';
-import UsersList from '../UsersList';
-import User from '../User';
-import trashIcon from '../../assets/images/trash-icon.png'
-import trashIconYellow from '../../assets/images/trash-icon-yellow.png'
-import { element } from 'prop-types';
+import trashIcon from '../../assets/images/trash-icon.png';
+import trashIconYellow from '../../assets/images/trash-icon-yellow.png';
+import penIcon from '../../assets/images/pen-icon.png';
+import penIconYellow from '../../assets/images/pen-icon-yellow.png';
+
 
 
 
@@ -33,23 +33,6 @@ const Game = () => {
         }
         fetchData();
     }, []);
-
-    // const [sport, setSport] = useState(game?.sport);
-    // const [description, setDescription] = useState(game?.description);
-    // const [equipmentNeeded, setEquipmentNeeded] = useState(game?.equipment_needed);
-    // const [skillLevel, setSkillLevel] = useState(game?.skill_level);
-    // const [address, setAddress] = useState(game?.address);
-    // const [city, setCity] = useState(game?.city);
-    // const [state, setState] = useState(game?.state);
-    // const [country, setCountry] = useState(game?.country);
-    // const [lat, setLat] = useState(game?.lat);
-    // const [lng, setLng] = useState(game?.lng);
-    // const [startTime, setStartTime] = useState(game?.start_time);
-    // const [endTime, setEndTime] = useState(game?.end_time)
-    // const [errors, setErrors] = useState([])
-
-    // const setTitleETV = (e) => setTitle(e.target.value);
-    // const setSportETV = (e) => setSport(e.target.value);
 
 
     useEffect(() => {
@@ -132,6 +115,16 @@ const Game = () => {
         trashCanIcon.setAttribute('src', trashIcon)
     }
 
+    const hoverPenIcon = () => {
+        const penEditIcon = document.getElementById('pen-icon')
+        penEditIcon.setAttribute('src', penIconYellow)
+    }
+
+    const unHoverPenIcon = () => {
+        const penEditIcon = document.getElementById('pen-icon')
+        penEditIcon.setAttribute('src', penIcon)
+    }
+
 
     return (
         <>
@@ -146,27 +139,18 @@ const Game = () => {
                     <img src={bannerImage} alt=""></img>
                 </div>
                 <div className="game-page-container">
-                    <span onClick={handleDelete}
-                        onMouseOver={hoverTrashIcon}
-                        onMouseOut={unHoverTrashIcon}
-                        className="delete-game-btn"> 
-                            <img src={trashIcon} alt="" className="delete-game-btn-icon"
-                            id="trash-icon"
-                             />
-                        Delete Game</span>
                     <form onSubmit={handleEdit} className="game-card-field" id="game-card-title-edit-btn" >
                         <div>
-                            {/* <button type='submit'>edit</button> */}
                             <div 
                             className="game-page-title" id="game-card-title-field" >{game?.title} 
-                                <span className="game-card-field game-page-sport">{` (${game?.sport})`} 
+                                <span className="game-card-field game-page-sport">{` (${game?.sport}) `} 
                                 </span>
                             </div>
                             {/* <div>
                                 <input
-                                    placeholder={game?.title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    type="text"
+                                placeholder={game?.title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                type="text"
                                 />
                                 <button onClick={handleSubmitTitle}type='submit'>save</button>
                             </div> */}
@@ -186,8 +170,8 @@ const Game = () => {
                                 {game?.state}
                             </span>
                         </div>
-                        <div className="game-card-field game-page-details" >
-                            <span>{game?.start_time.split(' ').slice(0,4).join(' ')}</span>
+                        <div className="game-card-field" >
+                        <span className="game-page-details">{game?.start_time.split(' ').slice(0,4).join(' ')}</span>
                         </div>
                     <div className="game-page-where-when"></div>
                     <div className="game-card-field" >
@@ -197,6 +181,26 @@ const Game = () => {
                     </div>
                 <div className="game-card-field game-page-description">{`"${game?.description}"`}</div>
                 <div>{`-${findCreator(game)}`}</div>
+                            <div className="edit-and-delete-btns">
+                                <Link to={`/games/edit/${gameId}`}
+                                    onMouseOver={hoverPenIcon}
+                                    onMouseOut={unHoverPenIcon}
+                                    className="delete-game-btn">
+                                    <img src={penIcon} alt="" 
+                                        className="delete-game-btn-icon"
+                                        id="pen-icon"/>
+                                    Edit Game</Link>
+                                <span onClick={handleDelete}
+                                    onMouseOver={hoverTrashIcon}
+                                    onMouseOut={unHoverTrashIcon}
+                                    className="delete-game-btn"> 
+                                        <img src={trashIcon} alt="" 
+                                        className="delete-game-btn-icon"
+                                        id="trash-icon"
+                                         />
+                                    Delete Game</span>
+            
+                            </div>
                 </div>
             </div>
         </>

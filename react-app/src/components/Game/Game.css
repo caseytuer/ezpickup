@@ -67,7 +67,7 @@
     padding: 5px;
     border-radius: 4px;
     border: black 1px solid;
-    width: auto;
+    width: 129px;
     margin-top: 10px;
     display: flex;
 }
@@ -80,4 +80,23 @@
 
 .delete-game-btn-icon {
     height: 20px;
+}
+
+.edit-game-btn {
+    display: flex;
+    justify-content: center;
+    background-color: #FFD700;
+    padding: 2px;
+    border-radius: 4px;
+    border: black 1px solid;
+    width: auto;
+    display: flex;
+    width: 129px;
+    float: right;
+}
+
+.edit-and-delete-btns {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
