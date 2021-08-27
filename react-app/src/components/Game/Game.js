@@ -9,6 +9,9 @@ import bannerImage from '../../assets/images/bball-sillouette.png';
 import Map from '../Map';
 import UsersList from '../UsersList';
 import User from '../User';
+import trashIcon from '../../assets/images/trash-icon.png'
+import trashIconYellow from '../../assets/images/trash-icon-yellow.png'
+import { element } from 'prop-types';
 
 
 
@@ -119,6 +122,16 @@ const Game = () => {
         }
     }
 
+    const hoverTrashIcon = () => {
+        const trashCanIcon = document.getElementById('trash-icon')
+        trashCanIcon.setAttribute('src', trashIconYellow)
+    }
+
+    const unHoverTrashIcon = () => {
+        const trashCanIcon = document.getElementById('trash-icon')
+        trashCanIcon.setAttribute('src', trashIcon)
+    }
+
 
     return (
         <>
@@ -133,7 +146,14 @@ const Game = () => {
                     <img src={bannerImage} alt=""></img>
                 </div>
                 <div className="game-page-container">
-                    {/* <button onClick={handleDelete}>delete game</button> */}
+                    <span onClick={handleDelete}
+                        onMouseOver={hoverTrashIcon}
+                        onMouseOut={unHoverTrashIcon}
+                        className="delete-game-btn"> 
+                            <img src={trashIcon} alt="" className="delete-game-btn-icon"
+                            id="trash-icon"
+                             />
+                        Delete Game</span>
                     <form onSubmit={handleEdit} className="game-card-field" id="game-card-title-edit-btn" >
                         <div>
                             {/* <button type='submit'>edit</button> */}

@@ -43,22 +43,7 @@ export const GameForm = () => {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        // 
-        console.log(userId)
-        console.log(title)
-        console.log(sport)
-        console.log(description)
-        console.log(equipmentNeeded)
-        console.log(skillLevel)
-        console.log(address)
-        console.log(city)
-        console.log(state)
-        console.log(country)
-        console.log(lat)
-        console.log(lng)
-        console.log(startTime)
-        console.log(endTime)
-        // 
+
         const payload = {
             creator_id: String(userId),
             title: String(title),
@@ -75,18 +60,18 @@ export const GameForm = () => {
             start_time: startTime,
             end_time: endTime,
         }
-        // setErrors([]);
+        setErrors([]);
         console.log(payload)
         dispatch(createGame(payload))
-        // .then( (data) => {
-        //     if (data && data.id) {
-        //         history.push(`/`);
-        //         window.location.reload();
-        //     }
-        // }).catch(async (res) => {
-        //     const data = res;
-        //     if (data && data.errors) setErrors(data.errors);
-        // })
+        .then( (data) => {
+            if (data && data.id) {
+                history.push(`/games/${data.id}`);
+                window.location.reload();
+            }
+        }).catch(async (res) => {
+            const data = res;
+            if (data && data.errors) setErrors(data.errors);
+        })
     }
 
     // const startTimeCalender = document.querySelector('start-time-calender')

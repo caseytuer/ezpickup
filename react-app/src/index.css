@@ -27,3 +27,10 @@ body {
     font-size: 15px;
 }
 
+.delete-game-btn {
+    width: 25px;
+}
+
+.delete-game-btn:hover {
+    cursor: pointer;
+}
