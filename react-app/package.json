@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "google-map-react": "^2.1.10",
     "http-proxy-middleware": "^1.0.5",
     "moment": "^2.29.1",
     "react": "^17.0.2",

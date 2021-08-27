@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { deleteGame, getGame } from '../../store/game';
 import { updateGame } from '../../store/game';
 import './Game.css'
+import bannerImage from '../../assets/images/bball-sillouette.png';
 
 
 
@@ -84,33 +85,54 @@ const Game = () => {
     }
 
     return (
-        <div>
-            <button onClick={handleDelete}>delete game</button>
-            <form onSubmit={handleEdit} className="game-card-field" id="game-card-title-edit-btn" >
-                <div>
-                    <button type='submit'>edit</button>
-                    <div>title</div>
-                    <div id="game-card-title-field" >{game?.title} </div>
-                    <div>
-                        <input
-                            placeholder={game?.title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            type="text"
-                        />
-                        <button onClick={handleSubmitTitle}type='submit'>save</button>
-                    </div>
-                </div>
-                <div>
-                    <div></div>
-                </div>
-            </form>
-            <div className="game-card-field">
-                <div>sport</div>
-                <div>{game?.sport} </div>
+        <div className="game-page-canvas">
+            <div className="game-page-side-banner">
+                <img src={bannerImage} alt=""></img>
             </div>
-            <div className="game-card-field" >{game?.description}</div>
-            <div className="game-card-field" >{game?.address}</div>
-            <div className="game-card-field" >{game?.city}</div>
+            <div className="game-page-container">
+                {/* <button onClick={handleDelete}>delete game</button> */}
+                <form onSubmit={handleEdit} className="game-card-field" id="game-card-title-edit-btn" >
+                    <div>
+                        {/* <button type='submit'>edit</button> */}
+                        <div 
+                        className="game-page-title" id="game-card-title-field" >{game?.title} </div>
+                        {/* <div>
+                            <input
+                                placeholder={game?.title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                type="text"
+                            />
+                            <button onClick={handleSubmitTitle}type='submit'>save</button>
+                        </div> */}
+                    </div>
+                    <div>
+                        <div></div>
+                    </div>
+                </form>
+                <div className="game-card-field">
+                    <div className="game-page-sport">{game?.sport} </div>
+                </div>
+                <div className="game-card-field" >{game?.description}</div>
+                <div className="game-card-field" >
+                    <span>
+                        {`@ ${game?.address}, `} 
+                    </span>
+                    <span>
+                        {`${game?.city}, `}
+                    </span>
+                    <span>
+                        {game?.state}
+                    </span>
+                </div>
+                <div className="game-card-field" >
+                    <span>starts at: </span>
+                    <span>{game?.start_time}</span>
+                </div>
+                <div className="game-card-field" >
+                    <span>ends at: </span>
+                    <span>{game?.end_time}</span>
+                </div>
+            </div>
         </div>
     )
 }
