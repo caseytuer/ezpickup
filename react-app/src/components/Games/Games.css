@@ -1,8 +1,25 @@
+.games-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .game-container {
-    border: 1px solid black;
+    width: 70%;
+    padding: 20px;
+}
+
+.game-container:hover {
+    background-color: #FFD700;
 }
 
 .game-card-title {
     font-size: 25px;
+    font-weight: 900;
+}
+
+.game-answer {
+    font-size: 20px;
     font-weight: 900;
 }

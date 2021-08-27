@@ -21,8 +21,8 @@ export const GameForm = () => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
-    const [lat, setLat] = useState(0);
-    const [lng, setLng] = useState(0);
+    const [lat, setLat] = useState();
+    const [lng, setLng] = useState();
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('')
     const [errors, setErrors] = useState([])
@@ -65,15 +65,15 @@ export const GameForm = () => {
             sport: String(sport),
             description: String(description),
             equipment_needed: String(equipmentNeeded),
-            skill_level: String(skillLevel),
+            skill_level: skillLevel,
             address: String(address),
             city: String(city),
             state: String(state),
             country: String(country),
             lat: lat,
             lng: lng,
-            start_time: '2021-08-28 16:00:00',
-            end_time: '2021-08-28 16:00:00',
+            start_time: startTime,
+            end_time: endTime,
         }
         // setErrors([]);
         console.log(payload)
@@ -107,7 +107,7 @@ export const GameForm = () => {
     } 
 
     return (
-        <div>
+        <div className="form-container">
             <form onSubmit={onFormSubmit}>
                 <div>Create Game</div>
                 <ul>
@@ -115,8 +115,8 @@ export const GameForm = () => {
                         <li key={idx}>{error}</li>)}
                 </ul>
                 <div>
-                    <label>title</label>
-                    <input 
+                    <input
+                        className="form-input-field"
                         required
                         placeholder="title"
                         value={title}
@@ -125,8 +125,8 @@ export const GameForm = () => {
                     />
                 </div>
                 <div>
-                    <label>sport</label>
                     <input
+                        className="form-input-field"
                         required
                         placeholder='sport'
                         value={sport}
@@ -134,24 +134,24 @@ export const GameForm = () => {
                     />
                 </div>
                 <div>
-                    <label>description</label>
                     <input
+                        className="form-input-field"
                         placeholder='description'
                         value={description}
                         onChange={setDescriptionETV}
                     />
                 </div>
                 <div>
-                    <label>equipment needed</label>
                     <input
+                        className="form-input-field"
                         placeholder='equipment needed'
                         value={equipmentNeeded}
                         onChange={setEquipmentNeededETV}
                     />
                 </div>
                 <div>
-                    <label>skill level</label>
-                    <select onChange={setSkillLevelETV}>
+                    <select onChange={setSkillLevelETV}
+                        className="form-input-field">
                         <option value={1}>beginner</option>
                         <option value={2}>intermediate</option>
                         <option value={3}>advanced</option>
@@ -159,8 +159,8 @@ export const GameForm = () => {
                     </select>
                 </div>
                 <div>
-                    <label>address</label>
                     <input
+                        className="form-input-field"
                         required
                         placeholder='address'
                         value={address}
@@ -168,8 +168,8 @@ export const GameForm = () => {
                     />
                 </div>
                 <div>
-                    <label>city</label>
                     <input
+                        className="form-input-field"
                         required
                         placeholder='city'
                         value={city}
@@ -177,8 +177,8 @@ export const GameForm = () => {
                     />
                 </div>
                 <div>
-                    <label>state</label>
                     <input
+                        className="form-input-field"
                         required
                         placeholder='state'
                         value={state}
@@ -186,8 +186,8 @@ export const GameForm = () => {
                     />
                 </div>
                 <div>
-                    <label>country</label>
                     <input
+                        className="form-input-field"
                         required
                         placeholder='country'
                         value={country}
@@ -195,8 +195,8 @@ export const GameForm = () => {
                     />
                 </div>
                 <div>
-                    <label>latitude</label>
                     <input
+                        className="form-input-field"
                         required
                         placeholder='latitude'
                         value={lat}
@@ -204,9 +204,9 @@ export const GameForm = () => {
                     />
                 </div>
                 <div>
-                    <label>longitude</label>
                     <input
-                        placeholder='lng'
+                        className="form-input-field"
+                        placeholder='longitude'
                         required
                         value={lng}
                         onChange={setLngETV}
@@ -222,7 +222,8 @@ export const GameForm = () => {
                     />
                 </div> */}
                 <div>
-                    start time<DateTime 
+                    <DateTime 
+                    className="form-input-field"
                     inputProps={inputProps}
                     onChange={value => setStartTime(handleDateTime(value._d))}/>
                 </div>
