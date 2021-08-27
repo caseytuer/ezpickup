@@ -8,7 +8,7 @@ import './Map.css'
 
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-const Map = ({gamesArr}) => {
+const Map = ({gamesArr, game}) => {
 
     const MAPS_API_KEY = process.env.REACT_APP_MAPS_API_KEY;
 
@@ -26,7 +26,6 @@ const Map = ({gamesArr}) => {
         </div>
     );
    
-    console.log(MAPS_API_KEY)
 
     return (
         // Important! Always set the container height explicitly
@@ -38,7 +37,16 @@ const Map = ({gamesArr}) => {
                 defaultCenter={props.center}
                 defaultZoom={props.zoom}
             >
-                {gamesArr.map(game => (
+                {game && 
+                <div
+                    lat={game.lat}
+                    lng={game.lng}
+                    text={game.title}
+                >
+                    <Marker/>
+                </div>
+                }
+                {gamesArr && gamesArr.map(game => (
                     <Link 
                     key={game.id} 
                     to={`/games/${game.id}`}
