@@ -3,6 +3,7 @@
     list-style-type: none;
     font-family: 'Open Sans', sans-serif;
     color: black;
+    box-sizing: border-box;
 }
 
 ul {
