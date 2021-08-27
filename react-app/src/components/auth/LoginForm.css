@@ -1,15 +1,21 @@
+.form-page-canvas {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+}
+
 .form-container {
     background-color: white;
     display: flex;
     height: auto;
-    min-width: 400px;
+    min-width: 500px;
     justify-content: center;
     padding: 1.5em;
     border-radius: 7px;
-    margin-right: 8em;
-    position: absolute;
-    top: 30%;
-    right: 50%;
+    /* position: absolute; */
 }
 
 .form-btn {
@@ -42,7 +48,7 @@
 }
 
 input.form-input-field {
-    width: 230px;
+    width: 400px;
     border: 1px solid black;
     border-radius: 4px;
     background-color: transparent;

@@ -19,6 +19,14 @@ const LoginForm = () => {
     }
   };
 
+  const onDemoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login('demo@aa.io', 'password'));
+    if (data) {
+      setErrors(data)
+    }
+  };
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -32,40 +40,42 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="form-container">
-      <form onSubmit={onLogin} className="login-form">
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        <div>
-          <input
-            className="form-input-field"
-            name='email'
-            type='text'
-            placeholder='Email'
-            value={email}
-            onChange={updateEmail}
-          />
-        </div>
-        <div>
-          <input
-            className="form-input-field"
-            name='password'
-            type='password'
-            placeholder='Password'
-            value={password}
-            onChange={updatePassword}
-          />
-        </div>
-          <button type='submit'
-            className="form-btn">Login</button>
-          <button 
-            className="form-btn"
-            >Demo Login
-          </button>
-      </form>
+    <div className="form-page-canvas">
+      <div className="form-container">
+        <form onSubmit={onLogin} className="login-form">
+          <div>
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+          <div>
+            <input
+              className="form-input-field"
+              name='email'
+              type='text'
+              placeholder='Email'
+              value={email}
+              onChange={updateEmail}
+            />
+          </div>
+          <div>
+            <input
+              className="form-input-field"
+              name='password'
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={updatePassword}
+            />
+          </div>
+            <button type='submit'
+              className="form-btn">Login</button>
+            <button onClick={onDemoLogin}
+              className="form-btn"
+              >Demo Login
+            </button>
+        </form>
+      </div>
     </div>
   );
 };

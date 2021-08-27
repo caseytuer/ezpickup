@@ -7,11 +7,9 @@
 
 .navbar-container {
     /* display: flex; */
-    margin-bottom: 10px;
-    padding: 10px;
     align-items: center;
     justify-content: space-between;
-    height: 65px;
+    height: auto;
     top: 0;
     border-bottom: black .5px solid;
     position: fixed;
@@ -22,7 +20,9 @@
 }
 
 .navbar-logo {
-    width: 70px;
+    width: 80px;
+    margin: 5px;
+    margin-left: 20px;
 }
 
 .create-and-logout-container {

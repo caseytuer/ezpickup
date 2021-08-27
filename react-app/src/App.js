@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import Game from './components/Game';
 import Games from './components/Games';
 import GameForm from './components/GameForm';
+import GameFormEdit from './components/GameForm/GameFormEdit';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -41,16 +42,19 @@ function App() {
           <UsersList/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true}>
-          <User />
+          <User/>
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <Games />
+          <Games/>
         </Route>
         <Route path='/games/create' exact={true}>
-          <GameForm />
+          <GameForm/>
         </Route>
         <Route path='/games/:gameId' exact={true} >
-          <Game />
+          <Game/>
+        </Route>
+        <Route path='/games/edit/:gameId' exact={true}>
+          <GameFormEdit/>
         </Route>
       </Switch>
     </BrowserRouter>
