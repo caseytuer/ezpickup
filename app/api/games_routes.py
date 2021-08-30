@@ -38,7 +38,6 @@ def get_all_games():
 def create_game():
     form = GameForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print(form.data)
     if form.validate_on_submit():
         game = Game(
             creator_id = form.creator_id.data,

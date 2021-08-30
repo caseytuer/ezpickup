@@ -19,7 +19,7 @@ def get_comments_by_game_id(id):
 
 
 @comments_routes.route('/games/<int:id>', methods=['POST'])
-def create_comment():
+def create_comment(id):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -36,7 +36,7 @@ def create_comment():
 
 
 @comments_routes.route('/<int:id>', methods=['PUT'])
-def update_comment():
+def update_comment(id):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
