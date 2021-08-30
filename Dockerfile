@@ -5,7 +5,6 @@ COPY react-app/. .
 
 # You have to set this because it should be set during build time.
 ENV REACT_APP_BASE_URL=https://ezpickup.herokuapp.com/
-ENV REACT_APP_MAPS_API_KEY=AIzaSyAiCqnE9AshEdCfzWXaZ4Hhdnt8ElJus4I
 
 # Build our React App
 RUN npm install

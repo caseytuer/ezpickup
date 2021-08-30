@@ -3,15 +3,67 @@
     flex-direction: column;
     align-content: center;
     width: 50vw;
+    margin-top: 50px;
 }
 
 .comment-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 70%;
+    width: 100%;
+    padding: 10px;
 }
 
 .comment-user-avatar {
     width: 50px;
+    margin-right: 10px;
+}
+
+.add-comment-text-area {
+    width: 100%;
+}
+
+.add-comment-submit-btn {
+    float: right;
+    background-color: #FFD700;
+    padding: 5px;
+    border-radius: 4px;
+    border: black 1px solid;
+    width: auto;
+}
+
+.edit-comment-btn {
+    float: right;
+    width: 20px;
+}
+
+.edit-comment-btn:hover {
+    cursor: pointer;
+}
+
+.delete-comment-btn {
+    float: right;
+    width: 20px;
+}
+
+.delete-comment-btn:hover {
+    cursor: pointer;
+}
+
+.comments-join-links {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comments-join-link {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.comments-join-link:hover {
+    color: #FFD700;
 }

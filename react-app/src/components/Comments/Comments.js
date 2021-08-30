@@ -5,7 +5,11 @@ import { useParams } from "react-router";
 import { getComments, createComment, updateComment, deleteComment } from "../../store/comment";
 import './Comments.css'
 import userAvatar from '../../assets/images/user-avatar.png'
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import penIcon from '../../assets/images/pen-icon.png';
+import penIconYellow from '../../assets/images/pen-icon-yellow.png';
+import trashIcon from '../../assets/images/trash-icon.png';
+import trashIconYellow from '../../assets/images/trash-icon-yellow.png';
 
 const Comments = ({ users }) => {
 
@@ -14,15 +18,19 @@ const Comments = ({ users }) => {
     const dispatch = useDispatch();
     const comments = useSelector(state => state.comment)
     const userId = useSelector((state) => state.session.user?.id);
+    const user = useSelector(state => state.session.user)
 
     const [comment, setComment] = useState('');
     const [errors, setErrors] = useState([]);
     const [editComment, setEditComment] = useState('')
 
-    let commentsArr = [];
+    let commentsArr;
+    let allCommentsArr = [];
     for (let key in comments) {
-        commentsArr.push(comments[key])
+        allCommentsArr.push(comments[key])
+        commentsArr = allCommentsArr.filter(comment => comment.game_id === Number(gameId))
     }
+    
 
     
     useEffect(() => {
@@ -30,7 +38,7 @@ const Comments = ({ users }) => {
     }, [dispatch])
 
     const commentUser = (comment) => {
-        return users.find(user => user.id === comment.user_id);
+        return users?.find(user => user.id === comment.user_id);
     }
 
     const handleSubmit = (e) => {
@@ -102,19 +110,51 @@ const Comments = ({ users }) => {
         dispatch(deleteComment(comment.id))
     }
 
+    // const hoverTrashIcon = (comment) => {
+    //     const trashCanIcon = document.getElementById(`delete-comment-btn-${comment.id}`)
+    //     trashCanIcon.setAttribute('src', trashIconYellow)
+    // }
+
+    // const unHoverTrashIcon = (comment) => {
+    //     const trashCanIcon = document.getElementById(`delete-comment-btn-${comment.id}`)
+    //     trashCanIcon.setAttribute('src', trashIcon)
+    // }
+
+    // const hoverPenIcon = (comment) => {
+    //     const penEditIcon = document.getElementById(`edit-comment-btn-${comment.id}`)
+    //     penEditIcon.setAttribute('src', penIconYellow)
+    // }
+
+    // const unHoverPenIcon = (comment) => {
+    //     const penEditIcon = document.getElementById(`edit-comment-btn-${comment.id}`)
+    //     penEditIcon.setAttribute('src', penIcon)
+    // }
+
 
     return (
         <div className="comments-container">
-            <form onSubmit={handleSubmit}>
+            {!user && 
+            <div className="comments-join-links">
+                <Link className="comments-join-link" to="/login"> Login </Link>
+                 or 
+                <Link className="comments-join-link" to="signup"> Sign Up </Link>
+                to Join the Conversation
+            </div>
+            }
+            {user && <form onSubmit={handleSubmit}
+            >
                 <textarea
+                className="add-comment-text-area"
                 placeholder="Leave a comment"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 >
                 </textarea>
-                <button type="submit">Submit</button>
-            </form>
-            {commentsArr.map((comment) => 
+                <button 
+                className="add-comment-submit-btn"
+                type="submit">Submit</button>
+            </form>}
+            {commentsArr?.map((comment) => 
             <div key={comment.id}
             className="comment-container">
                 <div>
@@ -123,20 +163,36 @@ const Comments = ({ users }) => {
                     <div>{commentUser(comment)?.username}</div>
                 </div>
                 <div>
-                    <button id={`edit-comment-btn-${comment.id}`} onClick={e => handleEdit(e, comment)}>Edit</button>
-                    <button onClick={e => handleDelete(e, comment)}>Delete</button>
-                    <form 
-                        onSubmit={e => handleEditSubmit(e, comment)}
-                        id={`edit-comment-input-field-${comment.id}`}
-                        className="edit-comment-input-field"
-                        hidden={true}
-                        >
-                        <textarea
-                        placeholder={comment.comment}
-                        onChange={e => setEditComment(e.target.value)}
-                        ></textarea>
-                        <button type="submit">Submit</button>
-                    </form>
+                {comment.id === userId &&
+                <>
+                        <img 
+                        // onMouseOver={hoverPenIcon(comment)}
+                        // onMouseOut={unHoverPenIcon(comment)}
+                        src={trashIcon}
+                        alt=""
+                        id={`edit-comment-btn-${comment.id}`} 
+                        className='edit-comment-btn'
+                        onClick={e => handleEdit(e, comment)}></img>
+                        <img 
+                        // onMouseOver={hoverTrashIcon(comment)}
+                        // onMouseOut={unHoverTrashIcon(comment)}
+                        src={penIcon}
+                        alt=""
+                        className="delete-comment-btn"
+                        onClick={e => handleDelete(e, comment)}></img>
+                        <form 
+                            onSubmit={e => handleEditSubmit(e, comment)}
+                            id={`edit-comment-input-field-${comment.id}`}
+                            className="edit-comment-input-field"
+                            hidden={true}
+                            >
+                            <textarea
+                            placeholder={comment.comment}
+                            onChange={e => setEditComment(e.target.value)}
+                            ></textarea>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </>}
                     <div 
                         id={`comment-content-${comment.id}`}
                         className="comment-content">
