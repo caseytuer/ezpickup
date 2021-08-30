@@ -1,0 +1,17 @@
+.comments-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 50vw;
+}
+
+.comment-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
+}
+
+.comment-user-avatar {
+    width: 50px;
+}

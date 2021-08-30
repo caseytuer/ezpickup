@@ -11,6 +11,7 @@ import trashIcon from '../../assets/images/trash-icon.png';
 import trashIconYellow from '../../assets/images/trash-icon-yellow.png';
 import penIcon from '../../assets/images/pen-icon.png';
 import penIconYellow from '../../assets/images/pen-icon-yellow.png';
+import Comments from '../Comments';
 
 
 
@@ -202,6 +203,10 @@ const Game = () => {
             
                             </div>
                 </div>
+            </div>
+            <div className="comments-canvas">
+                
+                <Comments users={users}/>
             </div>
         </>
     )
