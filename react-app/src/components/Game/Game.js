@@ -22,6 +22,7 @@ const Game = () => {
     const dispatch = useDispatch();
     let { gameId } = useParams();
     const game = useSelector(state => state.game[gameId])
+    const user = useSelector(state => state.session.user)
 
     const [users, setUsers] = useState([]);
     const [title, setTitle] = useState();
@@ -136,14 +137,6 @@ const Game = () => {
                                 <span className="game-card-field game-page-sport">{` (${game?.sport}) `} 
                                 </span>
                             </div>
-                            {/* <div>
-                                <input
-                                placeholder={game?.title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                type="text"
-                                />
-                                <button onClick={handleSubmitTitle}type='submit'>save</button>
-                            </div> */}
                         </div>
                         <div>
                             <div></div>
@@ -169,33 +162,33 @@ const Game = () => {
                         <span className="game-page-details">{handleTime(game?.start_time)}- </span>
                         <span className="game-page-details">{handleTime(game?.end_time)}</span>
                     </div>
-                <div className="game-card-field game-page-description">{`"${game?.description}"`}</div>
-                <div>{`-${findCreator(game)}`}</div>
-                            <div className="edit-and-delete-btns">
-                                <Link to={`/games/edit/${gameId}`}
-                                    onMouseOver={hoverPenIcon}
-                                    onMouseOut={unHoverPenIcon}
-                                    className="delete-game-btn">
-                                    <img src={penIcon} alt="" 
-                                        className="delete-game-btn-icon"
-                                        id="pen-icon"/>
-                                    Edit Game</Link>
-                                <span onClick={handleDelete}
-                                    onMouseOver={hoverTrashIcon}
-                                    onMouseOut={unHoverTrashIcon}
-                                    className="delete-game-btn"> 
-                                        <img src={trashIcon} alt="" 
-                                        className="delete-game-btn-icon"
-                                        id="trash-icon"
-                                         />
-                                    Delete Game</span>
-            
-                            </div>
-                </div>
-            </div>
+                    <div className="game-card-field game-page-description">{`"${game?.description}"`}</div>
+                    <div>{`-${findCreator(game)}`}</div>
+                            {user?.id === game?.creator_id && 
+                                <div className="edit-and-delete-btns">
+                                    <Link to={`/games/edit/${gameId}`}
+                                        onMouseOver={hoverPenIcon}
+                                        onMouseOut={unHoverPenIcon}
+                                        className="delete-game-btn">
+                                        <img src={penIcon} alt="" 
+                                            className="delete-game-btn-icon"
+                                            id="pen-icon"/>
+                                        Edit Game</Link>
+                                    <span onClick={handleDelete}
+                                        onMouseOver={hoverTrashIcon}
+                                        onMouseOut={unHoverTrashIcon}
+                                        className="delete-game-btn"> 
+                                            <img src={trashIcon} alt="" 
+                                            className="delete-game-btn-icon"
+                                            id="trash-icon"
+                                            />
+                                        Delete Game</span>
+                                </div>
+                            }
             <div className="comments-canvas">
-                
                 <Comments users={users}/>
+            </div>
+                </div>
             </div>
         </>
     )

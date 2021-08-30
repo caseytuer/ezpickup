@@ -30,7 +30,7 @@
 
 .game-page-side-banner {
     position: sticky;
-    margin-top: 50px;
+    left: 10%;
 }
 
 .game-page-details {
@@ -107,5 +107,4 @@
 
 .comments-canvas {
     display: flex;
-    margin-left: 35vw;
 }

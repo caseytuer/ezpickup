@@ -6,10 +6,10 @@ import { getComments, createComment, updateComment, deleteComment } from "../../
 import './Comments.css'
 import userAvatar from '../../assets/images/user-avatar.png'
 import { Link, useHistory } from "react-router-dom";
-import penIcon from '../../assets/images/pen-icon.png';
-import penIconYellow from '../../assets/images/pen-icon-yellow.png';
 import trashIcon from '../../assets/images/trash-icon.png';
 import trashIconYellow from '../../assets/images/trash-icon-yellow.png';
+import penIcon from '../../assets/images/pen-icon.png';
+import penIconYellow from '../../assets/images/pen-icon-yellow.png';
 
 const Comments = ({ users }) => {
 
@@ -110,25 +110,25 @@ const Comments = ({ users }) => {
         dispatch(deleteComment(comment.id))
     }
 
-    // const hoverTrashIcon = (comment) => {
-    //     const trashCanIcon = document.getElementById(`delete-comment-btn-${comment.id}`)
-    //     trashCanIcon.setAttribute('src', trashIconYellow)
-    // }
+    const hoverTrashIcon = (comment) => {
+        const trashCanIconComment = document?.getElementById(`delete-comment-btn-${comment?.id}`)
+        trashCanIconComment.setAttribute('src', trashIconYellow)
+    }
 
-    // const unHoverTrashIcon = (comment) => {
-    //     const trashCanIcon = document.getElementById(`delete-comment-btn-${comment.id}`)
-    //     trashCanIcon.setAttribute('src', trashIcon)
-    // }
+    const unHoverTrashIcon = (comment) => {
+        const trashCanIconComment = document?.getElementById(`delete-comment-btn-${comment?.id}`)
+        trashCanIconComment.setAttribute('src', trashIcon)
+    }
 
-    // const hoverPenIcon = (comment) => {
-    //     const penEditIcon = document.getElementById(`edit-comment-btn-${comment.id}`)
-    //     penEditIcon.setAttribute('src', penIconYellow)
-    // }
+    const hoverPenIcon = (comment) => {
+        const penEditIconComment = document?.getElementById(`edit-comment-btn-${comment?.id}`)
+        penEditIconComment.setAttribute('src', penIconYellow)
+    }
 
-    // const unHoverPenIcon = (comment) => {
-    //     const penEditIcon = document.getElementById(`edit-comment-btn-${comment.id}`)
-    //     penEditIcon.setAttribute('src', penIcon)
-    // }
+    const unHoverPenIcon = (comment) => {
+        const penEditIconComment = document?.getElementById(`edit-comment-btn-${comment?.id}`)
+        penEditIconComment.setAttribute('src', penIcon)
+    }
 
 
     return (
@@ -166,20 +166,21 @@ const Comments = ({ users }) => {
                 {comment.id === userId &&
                 <>
                         <img 
-                        // onMouseOver={hoverPenIcon(comment)}
-                        // onMouseOut={unHoverPenIcon(comment)}
+                        onMouseOver={e => hoverTrashIcon(comment)}
+                        onMouseOut={e => unHoverTrashIcon(comment)}
                         src={trashIcon}
                         alt=""
-                        id={`edit-comment-btn-${comment.id}`} 
-                        className='edit-comment-btn'
-                        onClick={e => handleEdit(e, comment)}></img>
-                        <img 
-                        // onMouseOver={hoverTrashIcon(comment)}
-                        // onMouseOut={unHoverTrashIcon(comment)}
-                        src={penIcon}
-                        alt=""
+                        id={`delete-comment-btn-${comment?.id}`}
                         className="delete-comment-btn"
                         onClick={e => handleDelete(e, comment)}></img>
+                        <img 
+                        onMouseOver={e => hoverPenIcon(comment)}
+                        onMouseOut={e => unHoverPenIcon(comment)}
+                        src={penIcon}
+                        alt=""
+                        id={`edit-comment-btn-${comment?.id}`} 
+                        className='edit-comment-btn'
+                        onClick={e => handleEdit(e, comment)}></img>
                         <form 
                             onSubmit={e => handleEditSubmit(e, comment)}
                             id={`edit-comment-input-field-${comment.id}`}
