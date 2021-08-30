@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 from app.models import Comment, db
+from app.forms import CommentForm
 
 
 comments_routes = Blueprint('/comments', __name__)
@@ -23,9 +24,9 @@ def create_comment():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         comment = Comment(
+            comment=form.comment.data,
             user_id=form.user_id.data,
-            game_id=form.game_id.data,
-            comment=form.comment.data
+            game_id=form.game_id.data
         )
         db.session.add(comment)
         db.session.commit()

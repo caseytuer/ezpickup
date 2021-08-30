@@ -25,6 +25,8 @@ const Map = ({gamesArr, game}) => {
             <img className="map-marker" src={mapPin} alt=""></img>
         </div>
     );
+
+    console.log(process.env)
    
 
     return (
