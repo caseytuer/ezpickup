@@ -23,7 +23,6 @@ const Comments = ({ users }) => {
         commentsArr.push(comments[key])
     }
 
-    console.log(users)
     
     useEffect(() => {
         dispatch(getComments())
