@@ -26,6 +26,7 @@ const Map = ({gamesArr, game}) => {
         </div>
     );
    
+    console.log(process.env)
 
     return (
         // Important! Always set the container height explicitly
