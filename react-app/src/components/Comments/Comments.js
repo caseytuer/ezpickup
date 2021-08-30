@@ -66,8 +66,8 @@ const Comments = ({ users }) => {
                 <button type="submit">Submit</button>
             </form>
             {commentsArr.map((comment, idx) => 
-            <>
-            <div className="comment-container">
+            <div key={idx}
+            className="comment-container">
                 <div>
                     <img src={userAvatar} alt=""
                     className="comment-user-avatar"></img>
@@ -77,7 +77,6 @@ const Comments = ({ users }) => {
                 {comment.comment}
                 </div>
             </div>
-            </>
             )}
         </div>
     )

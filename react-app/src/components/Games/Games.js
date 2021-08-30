@@ -44,7 +44,6 @@ const Games = () => {
             </div>
             <div className="games-container">
                 {gamesArr.map((game, idx) => 
-                <>
                     <div key={idx} className="game-container-wrapper">
 
                         <div className="game-container">
@@ -79,7 +78,6 @@ const Games = () => {
                             <div>{game.equipment_needed}</div>
                         </div>
                     </div>
-                </>    
                 )}
             </div>
         </>
