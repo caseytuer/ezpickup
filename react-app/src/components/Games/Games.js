@@ -18,7 +18,6 @@ const Games = () => {
         gamesArr.push(games[key])
     }
 
-    console.log(users)
     
     useEffect(() => {
         async function fetchData() {

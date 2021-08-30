@@ -62,7 +62,6 @@ export const GameForm = () => {
             end_time: endTime,
         }
         setErrors([]);
-        console.log(payload)
         dispatch(createGame(payload))
         .then( (data) => {
             if (data && data.id) {
@@ -78,7 +77,6 @@ export const GameForm = () => {
     // const startTimeCalender = document.querySelector('start-time-calender')
 
     const handleDateTime = (dateTime) => {
-        console.log(dateTime)
         const units = String(dateTime).split(' ');
         const calender = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         let year = units[3];
@@ -161,7 +159,6 @@ export const GameForm = () => {
                         <DateTime 
                             inputProps={inputPropsEnd}
                             onChange={value => {
-                                console.log(value);
                                 setEndTime(handleDateTime(value._d))}} />
                     </div>
                     <div>

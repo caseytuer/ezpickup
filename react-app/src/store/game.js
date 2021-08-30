@@ -74,7 +74,6 @@ export const updateGame = (payload) => async (dispatch) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     });
-    console.log(response)
     if (response.ok) {
         const game = await response.json();
         await dispatch(editGame(game));

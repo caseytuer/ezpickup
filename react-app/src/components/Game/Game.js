@@ -42,11 +42,6 @@ const Game = () => {
     
     const handleEdit = (e) => {
         e.preventDefault()
-        // console.log(e.currentTarget)
-        // let input = document.getElementById('game-card-title-field')
-        // let editBtn = document.getElementById('game-card-title-edit-btn')
-        // input.display = 'none';
-        // editBtn.hidden = true;
     }
 
     const handleSubmitTitle = (e) => {
@@ -68,13 +63,7 @@ const Game = () => {
             start_time: game.start_time,
             end_time: game.end_time,
         }
-        console.log(payload)
         dispatch(updateGame(payload))
-        // let input = document.getElementById('game-card-title-field');
-        // let editBtn = document.getElementById('game-card-title-edit-btn')
-        // console.log(input)
-        // input.display = 'block';
-        // editBtn.hidden = false;
     }
     
     const handleDelete = () => {

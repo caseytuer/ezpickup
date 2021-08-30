@@ -15,7 +15,6 @@ export const GameFormEdit = () => {
     const game = useSelector(state => state.game[gameId])
     const userId = useSelector((state) => state.session.user?.id);
 
-    console.log(game)
 
     const [title, setTitle] = useState(game.title);
     const [sport, setSport] = useState(game.sport);
@@ -65,7 +64,6 @@ export const GameFormEdit = () => {
             end_time: endTime,
         }
         setErrors([]);
-        console.log(payload)
         dispatch(updateGame(payload))
             .then((data) => {
                 if (data && data.id) {
@@ -81,7 +79,6 @@ export const GameFormEdit = () => {
     // const startTimeCalender = document.querySelector('start-time-calender')
 
     const handleDateTime = (dateTime) => {
-        console.log(dateTime)
         const units = String(dateTime).split(' ');
         const calender = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         let year = units[3];
@@ -164,7 +161,6 @@ export const GameFormEdit = () => {
                         <DateTime
                             inputProps={inputPropsEnd}
                             onChange={value => {
-                                console.log(value);
                                 setEndTime(handleDateTime(value._d))
                             }} />
                     </div>
