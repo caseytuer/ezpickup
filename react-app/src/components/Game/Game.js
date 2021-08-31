@@ -15,7 +15,6 @@ import Comments from '../Comments';
 
 
 
-
 const Game = () => {
 
     const history = useHistory();
@@ -76,10 +75,10 @@ const Game = () => {
 
     const findCreator = (game) => {
         const user = users?.find(user => user?.id === game?.creator_id)
-        return user?.username
+        return user
     }
 
-    const skillLevel = ['none', 'Beginner', 'Intermediate', 'Advanced']
+    const skillLevel = ['none', 'Beginner', 'Intermediate', 'Advanced', 'All Skills Welcome']
 
     const handleTime = (time) => {
         const militaryTime = time?.split(' ')[4]
@@ -116,54 +115,106 @@ const Game = () => {
         penEditIcon.setAttribute('src', penIcon)
     }
 
+    const calendarDate = `${game?.start_time.split(' ')[2]} ${game?.start_time.split(' ')[1]}`
+
 
     return (
         <>
-            <div>
-                <Map game={game} />
-            </div>
+        <div className="top-banner"></div>
             <div className="find-another-game">
                 <Link to="/" className="find-another-game-btn">Find Another Game</Link>
             </div>
             <div className="game-page-canvas">
-                <div className="game-page-side-banner">
+                {/* <div className="game-page-side-banner">
                     <img src={bannerImage} alt=""></img>
-                </div>
+                </div> */}
                 <div className="game-page-container">
-                    <form onSubmit={handleEdit} className="game-card-field" id="game-card-title-edit-btn" >
-                        <div>
-                            <div 
-                            className="game-page-title" id="game-card-title-field" >{game?.title} 
-                                <span className="game-card-field game-page-sport">{` (${game?.sport}) `} 
-                                </span>
+                    <div className="game-info-container">
+                        <div className="game-info-icons">
+                            <div className="calendar-date-container">
+                                <div className="calendar-date">
+                                    {calendarDate}
+                                </div>
+                            </div>
+                            <div className="start-time-container">
+                                <div className="start-time">
+                                    {handleTime(game?.start_time)}
+                                </div>
+                            </div>
+                            <div className="skill-level-container">
+                                <div className="skill-level">
+                                    {skillLevel[game?.skill_level]}
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <div></div>
+                        <div className="game-page-title-and-description">
+                            <div>
+                                <div 
+                                className="game-page-title" id="game-card-title-field" >
+                                <div>
+                                    {`${game?.title} `} 
+                                </div>
+                                <div className="game-page-sport">
+                                    {`${game?.sport}`} 
+                                </div>
+                            </div>
+                                </div>
+                            <div className=" 
+                                game-page-description">
+                                {`"${game?.description}"`}
+                                <div className="game-description-user">
+                                <img className="host-img" src={'https://ezpickupsports.s3.us-west-1.amazonaws.com/demo-host.jpeg'} alt=''></img>
+                                <div>
+                                    <div>
+                                        {`${findCreator(game)?.username}`}
+                                    </div>
+                                    <div>{`${findCreator(game)?.full_name}`}</div>
+                                </div>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                        <div className="game-card-field" >
+                        <div className="join-game-container">
+                            <label className="join-check-container">
+                                <input type='checkbox'></input>
+                                {" Join"}
+                                <span className="checkbox"></span>
+                            </label>
+                        </div>
+                    </div>
+                    {/* <form onSubmit={handleEdit} className="game-card-field" id="game-card-form" >
+                    <div className="game-details-container">
+                        
+                        <div>
                             <span className="game-page-details">
-                                {`${game?.address}, `} 
+                                {`Address: ${game?.address}, `} 
                             </span>
                             <span className="game-page-details">
                                 {`${game?.city}, `}
                             </span>
                             <span className="game-page-details">
-                                {game?.state}
+                                {`${game?.state} `}
                             </span>
                         </div>
-                        <div className="game-card-field" >
-                        <span className="game-page-details">{game?.start_time.split(' ').slice(0,4).join(' ')}</span>
+                        <div 
+                        className="game-page-details">
+                            {`Date: ${game?.start_time.split(' ').slice(0,4).join(' ')}`}
+                            <div className="game-page-details">
+                                Gametime: {handleTime(game?.start_time)}- 
+                                <span className="game-page-details"> {handleTime(game?.end_time)}
+                                </span>
+                            </div>
                         </div>
-                    <div className="game-page-where-when"></div>
-                    <div className="game-card-field" >
-                        <span className="game-page-details"></span>
-                        <span className="game-page-details">{handleTime(game?.start_time)}- </span>
-                        <span className="game-page-details">{handleTime(game?.end_time)}</span>
+                        <div
+                        className="game-page-details">
+                            Skill Level: {skillLevel[game?.skill_level]}
+                        </div>
+                        <div
+                        className="game-page-details">
+                            Equipment Needed: {game?.equipment_needed}
+                        </div>
                     </div>
-                    <div className="game-card-field game-page-description">{`"${game?.description}"`}</div>
-                    <div>{`-${findCreator(game)}`}</div>
+                </div>
+                </form> */}
                             {user?.id === game?.creator_id && 
                                 <div className="edit-and-delete-btns">
                                     <Link to={`/games/edit/${gameId}`}
@@ -185,6 +236,9 @@ const Game = () => {
                                         Delete Game</span>
                                 </div>
                             }
+                <div className="game-page-map-container">
+                    <Map game={game} />
+                </div>
             <div className="comments-canvas">
                 <Comments users={users}/>
             </div>
