@@ -162,9 +162,12 @@ const Comments = ({ users }) => {
                     className="comment-user-avatar"></img>
                     <div>{commentUser(comment)?.username}</div>
                 </div>
-                <div>
-                {comment.id === userId &&
-                <>
+                <div
+                    className="edit-comment-box"
+                >
+                {comment.user_id === userId &&
+                <div 
+                >
                         <img 
                         onMouseOver={e => hoverTrashIcon(comment)}
                         onMouseOut={e => unHoverTrashIcon(comment)}
@@ -188,12 +191,15 @@ const Comments = ({ users }) => {
                             hidden={true}
                             >
                             <textarea
+                            className="add-comment-text-area edit-comment-text-area"
                             placeholder={comment.comment}
                             onChange={e => setEditComment(e.target.value)}
                             ></textarea>
-                            <button type="submit">Submit</button>
+                            <button 
+                            className="add-comment-submit-btn"
+                            type="submit">Submit</button>
                         </form>
-                    </>}
+                    </div>}
                     <div 
                         id={`comment-content-${comment.id}`}
                         className="comment-content">

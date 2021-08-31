@@ -12,13 +12,23 @@ const Map = ({gamesArr, game}) => {
 
     const MAPS_API_KEY = process.env.REACT_APP_MAPS_API_KEY;
 
-    const props = {
+    let props = {
         center: {
             lat: 32.851654506454985,
             lng: -117.21027709999998
         },
         zoom: 11,
     };
+
+    if (game?.lat) {
+        props = { 
+            center: {
+                lat: game.lat,
+                lng: game.lng
+            },
+            zoom: 15,
+        }
+    }
 
     const Marker = ({ lat, lng }) => (
         <div >
@@ -29,7 +39,7 @@ const Map = ({gamesArr, game}) => {
 
     return (
         // Important! Always set the container height explicitly
-        <div style={{ height: '50vh', width: '100%' }}>
+        <div style={{ height: '400px', width: '100%' }}>
             <GoogleMapReact
                 bootstrapURLKeys={{
                     key: MAPS_API_KEY

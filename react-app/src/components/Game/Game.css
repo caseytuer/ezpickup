@@ -8,54 +8,81 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60vw;
+    width: 70vw;
 }
 
 .game-page-title {
+    width: auto;
+    display: flex;
+    align-items: center;
     font-size: 50px;
     font-weight: 900;
 }
 
 .game-page-sport {
-    font-size: 30px;
+    font-size: 20px;
+    padding:0 5px;
     font-weight: 700;
+    color: #FFD700;
+    background-color: black;
+    border-radius: 20px;
+    margin-left: 20px;
+    margin-top: 5px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .game-page-canvas {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-left: 100px;
+    /* margin-left: 100px; */
 }
 
 .game-page-side-banner {
+    position: -webkit-sticky;
     position: sticky;
-    left: 10%;
+    height: 100%;
+    top: 30vh;
+    /* margin-left: -70vw; */
 }
 
 .game-page-details {
-    font-size: 20px;
-    font-weight: 900;
     padding: 0;
 }
 
-.game-page-description {
-    margin-top: 15px;
+.game-page-title-and-description {
     font-size: 20px;
+    width: 80%;
+    height: 340px;
+    /* border: 1px solid black; */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-page-description {
+    margin-top: 20px;
+    /* text-align: center; */
+    width: 80%;
 }
 
 .find-another-game {
+    margin-top: 90px;
+    margin-right: 10px;
     display: flex;
     justify-content: flex-end;
-    font-weight: 900;;
+    font-weight: 900;
 }
 
 .find-another-game-btn {
     background-color: #FFD700;
     padding: 5px;
     border-radius: 4px;
-    border: black 1px solid;
+    /* border: black 1px solid; */
     width: auto;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .find-another-game-btn:hover {
@@ -68,10 +95,11 @@
     background-color: #FFD700;
     padding: 5px;
     border-radius: 4px;
-    border: black 1px solid;
+    /* border: black 1px solid; */
     width: 129px;
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .delete-game-btn:hover {
@@ -103,8 +131,233 @@
     width: 100%;
 }
 
-
-
 .comments-canvas {
     display: flex;
+    margin-bottom: 50px;
+}
+
+.game-description-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    margin-top: 20px;
+}
+
+.game-card-time-and-place {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+/* #game-card-chalkboard {
+    position: absolute;
+    top: 60%;
+    left: 32%;
+    z-index: -1;
+    width: 50%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+
+.game-details-container {
+    width: 50%;
+    /* height: 110%;
+    background-image: url(../../assets/images/chalkboard.png);
+    background-size: 100%;
+    background-position: contain;
+    background-repeat: no-repeat; */
+}
+
+/* .chalkboard {
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: -100px;
+} */
+
+.game-page-map-container {
+    margin-top: 20px;
+    width: 100%;
+    height: 400px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.calendar-date-container {
+    background-image: url(../../assets/images/calendar.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* position: absolute; */
+    width: 80px;
+    height: 80px;
+    /* left: 8%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #FFD700;
+    border-radius: 10px; */
+}
+
+/* .calendar-img {
+    width: 60px;
+    position: absolute;
+    z-index: -10;
+} */
+
+.calendar-date {
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.start-time-container {
+    background-image: url(../../assets/images/watch.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* position: absolute; */
+    width: 110px;
+    height: 110px;
+    /* left: 7%; */
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #FFD700;
+    border-radius: 10px; */
+}
+
+.start-time {
+    margin-right: 7px;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.skill-level-container {
+    background-image: url(../../assets/images/meter.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* position: absolute; */
+    width: auto;
+    height: 80px;
+    /* left: 8%; */
+    /* margin-top: 220px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill-level {
+    margin-top: 70px;
+    overflow: hidden;
+    width:auto;
+    white-space: nowrap;
+}
+
+.game-info-container {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: white;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.game-info-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+    /* margin-right: 50px; */
+}
+
+.top-banner {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    z-index: -1;
+    background-image: url(../../assets/images/hoop.jpg);
+    background-size: cover;
+    background-position: 75% 95%;
+}
+
+.host-img {
+    border-radius: 100px;
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+}
+
+.join-game-container {
+    /* margin-right: 50px; */
+}
+
+.join-check-container {
+
+      display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-right: 50px;
+}
+
+.join-check-container input {
+      position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkbox {
+      position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #FFD700;
+}
+
+.join-check-container:hover input ~ .checkbox {
+  background-color: #FFD700;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.join-check-container input:checked ~ .checkbox {
+  background-color: #FFD700;
+}
+
+.checkbox:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.join-check-container input:checked ~ .checkbox:after {
+  display: block;
+}
+
+.join-check-container .checkbox:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
