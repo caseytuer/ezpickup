@@ -12,6 +12,7 @@ import trashIconYellow from '../../assets/images/trash-icon-yellow.png';
 import penIcon from '../../assets/images/pen-icon.png';
 import penIconYellow from '../../assets/images/pen-icon-yellow.png';
 import Comments from '../Comments';
+import { createPlayer, deletePlayer, getPlayers } from '../../store/player';
 
 
 
@@ -22,9 +23,42 @@ const Game = () => {
     let { gameId } = useParams();
     const game = useSelector(state => state.game[gameId])
     const user = useSelector(state => state.session.user)
+    const allPlayers = useSelector(state => state.player)
+
+    //update reducer to serve array
+    let playersArr = [];
+    for (let key in allPlayers) {
+        playersArr.push(allPlayers[key])
+    }
+
+    const currentPlayers = playersArr.filter(player => Number(player.game_id) === Number(gameId))
+    console.log(currentPlayers)
 
     const [users, setUsers] = useState([]);
-    const [title, setTitle] = useState();
+    const [isJoined, setIsJoined] = useState(false);
+    const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        if (currentPlayers.some(player => player.player_id === user.id)) {
+            setIsJoined(true)
+        } else {
+            setIsJoined(false)
+        }
+    })
+    // else {
+    //     setIsJoined(false)
+    // }
+    // useEffect(() => {
+    //     setIsJoined()
+    // }, [setIsJoined])
+    const joinCheckbox = document.getElementById('join-checkbox');
+
+    if (isJoined) {
+        joinCheckbox.checked = true;
+    } 
+    
+
+    console.log(isJoined)
 
     useEffect(() => {
         async function fetchData() {
@@ -35,37 +69,49 @@ const Game = () => {
         fetchData();
     }, []);
 
-
     useEffect(() => {
-        dispatch(getGame(gameId))
+        dispatch(getGame(gameId));
+        dispatch(getPlayers(gameId))
     }, [dispatch])
     
-    const handleEdit = (e) => {
-        e.preventDefault()
+    
+    const handleJoin = () => {
+        if (!isJoined) {
+            const payload = {
+                player_id: user.id,
+                game_id: gameId
+            }
+            setIsJoined(true);
+            setErrors([]);
+            dispatch(createPlayer(payload))
+            .then((data) => {
+                if (data && data.id) {
+                    history.push(`/games/${gameId}`);
+                }
+            }).catch(async(res) => {
+                const data = res;
+                if (data && data.errors) setErrors(data.errors)
+            })
+        } else {
+            const player = currentPlayers.find(player => player.player_id === user.id);
+            const playerId = player.id;
+            setIsJoined(false);
+            setErrors([]);
+            dispatch(deletePlayer(playerId))
+                .then((data) => {
+                    if (data && data.id) {
+                        history.push(`/games/${gameId}`);
+                        window.location.reload();
+                    }
+                }).catch(async (res) => {
+                    const data = res;
+                    if (data && data.errors) setErrors(data.errors)
+                })
+            // dispatch(getPlayers(gameId))
+        }
     }
 
-    const handleSubmitTitle = (e) => {
-        e.preventDefault()
-        const payload = {
-            id: gameId,
-            creator_id: game.creator_id,
-            title: title,
-            sport: game.sport,
-            description: game.description,
-            equipment_needed: game.equipment_needed,
-            skill_level: game.skill_level,
-            address: game.address,
-            city: game.city,
-            state: game.state,
-            country: game.country,
-            lat: game.lat,
-            lng: game.lng,
-            start_time: game.start_time,
-            end_time: game.end_time,
-        }
-        dispatch(updateGame(payload))
-    }
-    
+
     const handleDelete = () => {
         const deleted = dispatch(deleteGame(gameId))
         if (deleted) {
@@ -175,46 +221,17 @@ const Game = () => {
                         </div>
                         <div className="join-game-container">
                             <label className="join-check-container">
-                                <input type='checkbox'></input>
+                                <input type='checkbox'
+                                    id="join-checkbox"
+                                    onChange={handleJoin}
+                                ></input>
                                 {" Join"}
                                 <span className="checkbox"></span>
                             </label>
+                                <span>{`Roster: ${currentPlayers.length}`}</span>
                         </div>
                     </div>
-                    {/* <form onSubmit={handleEdit} className="game-card-field" id="game-card-form" >
-                    <div className="game-details-container">
-                        
-                        <div>
-                            <span className="game-page-details">
-                                {`Address: ${game?.address}, `} 
-                            </span>
-                            <span className="game-page-details">
-                                {`${game?.city}, `}
-                            </span>
-                            <span className="game-page-details">
-                                {`${game?.state} `}
-                            </span>
-                        </div>
-                        <div 
-                        className="game-page-details">
-                            {`Date: ${game?.start_time.split(' ').slice(0,4).join(' ')}`}
-                            <div className="game-page-details">
-                                Gametime: {handleTime(game?.start_time)}- 
-                                <span className="game-page-details"> {handleTime(game?.end_time)}
-                                </span>
-                            </div>
-                        </div>
-                        <div
-                        className="game-page-details">
-                            Skill Level: {skillLevel[game?.skill_level]}
-                        </div>
-                        <div
-                        className="game-page-details">
-                            Equipment Needed: {game?.equipment_needed}
-                        </div>
-                    </div>
-                </div>
-                </form> */}
+                    
                             {user?.id === game?.creator_id && 
                                 <div className="edit-and-delete-btns">
                                     <Link to={`/games/edit/${gameId}`}
