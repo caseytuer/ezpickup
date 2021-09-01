@@ -1,4 +1,4 @@
-const SET_GAME = 'games/setGames';
+const SET_GAME = 'games/setGame';
 const SET_ALL_GAMES = 'games/setAllGames';
 const ADD_GAME = 'games/addGame';
 const EDIT_GAME = 'games/editGame';
@@ -29,24 +29,26 @@ const removeGame = (game) => ({
     game
 })
 
-export const getGame = (id) => async (dispatch) => {
-    const response = await fetch(`/api/games/${id}/`);
-    const data = await response.json();
 
+export const getAllGames = () => async (dispatch) => {
+    const response = await fetch(`/api/games/`)
+    const data = await response.json();
+    
     if (response.ok) {
-        await dispatch(setGame(data));
+        await dispatch(setAllGames(data.games));
         return response
     } else {
         return ['An error occurred, please try again']
     }
 }
 
-export const getAllGames = () => async (dispatch) => {
-    const response = await fetch(`/api/games/`)
+
+export const getGame = (id) => async (dispatch) => {
+    const response = await fetch(`/api/games/${id}/`);
     const data = await response.json();
 
     if (response.ok) {
-        await dispatch(setAllGames(data.games));
+        await dispatch(setGame(data));
         return response
     } else {
         return ['An error occurred, please try again']

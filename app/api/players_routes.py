@@ -9,3 +9,8 @@ players_routes = Blueprint('players', __name__)
 def get_players_by_game_id(id):
     players = Player.query.filter_by(game_id=id).all()
     return {'players': [player.to_dict() for player in players]}
+
+
+@players_routes.route('/games/<int:id>', methods=['POST'])
+def create_player(id):
+    
