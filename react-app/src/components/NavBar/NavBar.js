@@ -13,7 +13,7 @@ const NavBar = () => {
     <nav className="navbar-container">
       <ul className="navbar-ul">
         <li>
-          <NavLink to='/' 
+          <NavLink to='/games' 
             exact={true} 
             activeClassName='active'
           >

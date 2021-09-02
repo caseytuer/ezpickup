@@ -5,6 +5,7 @@ import { signUp } from '../../store/session';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
+  const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,11 +16,15 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const data = await dispatch(signUp(fullName, username, email, password));
       if (data) {
         setErrors(data)
       }
     }
+  };
+
+  const updateFullName = (e) => {
+    setFullName(e.target.value);
   };
 
   const updateUsername = (e) => {
@@ -39,7 +44,7 @@ const SignUpForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/games' />;
   }
 
   return (
@@ -50,6 +55,16 @@ const SignUpForm = () => {
             {errors.map((error, ind) => (
               <div key={ind}>{error}</div>
             ))}
+          </div>
+          <div>
+            <input
+              placeholder="full name"
+              className="form-input-field"
+              type='text'
+              name='full_name'
+              onChange={updateFullName}
+              value={fullName}
+            ></input>
           </div>
           <div>
             <input

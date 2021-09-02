@@ -1,0 +1,31 @@
+.landing-canvas {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../../assets/images/volleyball.jpeg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-message {
+    position: absolute;
+    top: 80px;
+    background-color: #FFD700;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.welcome-title {
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.landing-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

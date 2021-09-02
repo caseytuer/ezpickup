@@ -12,6 +12,7 @@ import Game from './components/Game';
 import Games from './components/Games';
 import GameForm from './components/GameForm';
 import GameFormEdit from './components/GameForm/GameFormEdit';
+import Landing from './components/Landing';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -32,6 +33,9 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path='/' exact={true}>
+          <Landing />
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
@@ -44,18 +48,18 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true}>
           <User/>
         </ProtectedRoute>
-        <Route path='/' exact={true} >
+        <Route path='/games' exact={true} >
           <Games/>
         </Route>
-        <Route path='/games/create' exact={true}>
+        <ProtectedRoute path='/games/create' exact={true}>
           <GameForm/>
-        </Route>
+        </ProtectedRoute>
         <Route path='/games/:gameId' exact={true} >
           <Game/>
         </Route>
-        <Route path='/games/edit/:gameId' exact={true}>
+        <ProtectedRoute path='/games/edit/:gameId' exact={true}>
           <GameFormEdit/>
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
