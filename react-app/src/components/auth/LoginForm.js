@@ -36,7 +36,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/games' />;
   }
 
   return (

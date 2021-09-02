@@ -39,7 +39,7 @@ const Game = () => {
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
-        if (currentPlayers.some(player => player.player_id === user.id)) {
+        if (currentPlayers.some(player => player?.player_id === user?.id)) {
             setIsJoined(true)
         } else {
             setIsJoined(false)
@@ -115,7 +115,7 @@ const Game = () => {
     const handleDelete = () => {
         const deleted = dispatch(deleteGame(gameId))
         if (deleted) {
-            history.push('/')
+            history.push('/games')
         }
     }
 
@@ -168,7 +168,7 @@ const Game = () => {
         <>
         <div className="top-banner"></div>
             <div className="find-another-game">
-                <Link to="/" className="find-another-game-btn">Find Another Game</Link>
+                <Link to="/games" className="find-another-game-btn">Find Another Game</Link>
             </div>
             <div className="game-page-canvas">
                 {/* <div className="game-page-side-banner">
@@ -219,6 +219,7 @@ const Game = () => {
                                 </div>
                             </div>
                         </div>
+                        {user &&
                         <div className="join-game-container">
                             <label className="join-check-container">
                                 <input type='checkbox'
@@ -230,6 +231,19 @@ const Game = () => {
                             </label>
                                 <span>{`Roster: ${currentPlayers.length}`}</span>
                         </div>
+                        }
+                        {!user && 
+                            <div className="join-game-container">
+                                <Link to='/login' className="join-check-container">
+                                    <input type='checkbox'
+                                        id="join-checkbox-logged-out"
+                                        checked={false}
+                                    ></input>
+                                    {" Join"}
+                                    <span className="checkbox"></span>
+                                </Link>
+                                <span>{`Roster: ${currentPlayers.length}`}</span>
+                            </div>}
                     </div>
                     
                             {user?.id === game?.creator_id && 
