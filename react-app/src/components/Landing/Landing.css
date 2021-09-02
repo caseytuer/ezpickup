@@ -17,6 +17,9 @@
     padding: 20px;
     width: 100%;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .welcome-title {
@@ -28,4 +31,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.form-demo-btn {
+    background-color: black;
+    padding: 1em;
+    border-radius: 4px;
+    border: black 1px solid;
+    width: auto;
+    height: auto;
+    color: white;
+}
+
+.form-demo-btn:hover {
+    cursor: pointer;
+    background-color: black;
+    color: #FFD700;
+}
+
+.about-link {
+    width: 166.3px;
 }
