@@ -38,9 +38,10 @@
     padding: 1em;
     border-radius: 4px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    width: auto;
-    height: auto;
+    width: 165px;
+    height: 45px;
     color: white;
+    border: none;
 }
 
 .form-demo-btn:hover {
@@ -50,5 +51,10 @@
 }
 
 .about-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 166.3px;
+    font-size: 14px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }

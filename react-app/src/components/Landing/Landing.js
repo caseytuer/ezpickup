@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { login } from '../../store/session'
 import landingHoop from '../../assets/images/landing-hoop.jpg'
 import './Landing.css'
+import { useHistory } from 'react-router-dom'
 
 const welcomeMessage = "Welcome to ezpickup"
 const secondaryMessage = "Find free local sports near you"
@@ -10,6 +11,7 @@ const secondaryMessage = "Find free local sports near you"
 const Landing = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const [errors, setErrors] = useState([]);
 
     const onDemoLogin = async (e) => {
@@ -18,6 +20,7 @@ const Landing = () => {
         if (data) {
             setErrors(data)
         }
+        history.push('/games')
     };
 
     return (
