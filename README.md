@@ -6,7 +6,7 @@
 * [Application Architecture & Technologies Used](#application-architecture) 
 * [Frontend Overview](#frontend-overview)
 * [Backend Overview](#backend-overview)
-* [Conclusion & Next Steps](#conclusion-and-next-steps)
+* [From the Developer](#from-the-developer)
 
 ## ezpickup introduction
 ezpickup is a fullstack Flask/React app that lets users find and host local pickup sports games. 

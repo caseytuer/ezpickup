@@ -1,33 +1,92 @@
-.map-container {
-    margin-top: 65px;
-}
-
 .games-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50vh;
+    background-color: white;
+    overflow: scroll;
 }
 
-.game-container-wrapper {
+/* .game-container-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-}
+    align-items: flex-end;
+} */
 
 .game-container {
-    width: 70%;
+    width: 100%;
     padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    background-color: white;
 }
 
-.game-container-wrapper:hover {
+.game-container:hover {
     background-color: #FFD700;
 }
 
 .game-card-title {
     font-size: 25px;
     font-weight: 900;
+    display: flex;
+    align-items: center;
 }
 
-.game-answer {
-    font-size: 20px;
-    font-weight: 900;
+.game-answer-sport {
+    font-size: 15px;
+    padding:0 5px;
+    font-weight: 700;
+    color: #FFD700;
+    background-color: black;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin-left: 10px;
+    margin-top: 3px;
+}
+
+/* .game-answer-starttime {
+    float: right;
+}
+
+.game-answer-date {
+    float: right;
+} */
+
+.time-and-date-container {
+    /* position: absolute; */
+    /* right: 20%; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.games-side-banner {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 400px;
+    z-index: -1;
+    background-image: url(../../assets/images/hoop.jpg);
+    background-size: cover;
+    background-position: 20% 60%;
+}
+
+.games-page-canvas {
+    position: absolute;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100% - 80px;
+    /* background-color: white; */
+}
+
+.map-container-games {
+    width: 100%;
+    height: 40vh;
 }
