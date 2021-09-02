@@ -32,8 +32,9 @@ const Landing = () => {
                 </div>
                 <div className="landing-text">{secondaryMessage}</div>
             </div>
-            <button
-                className="form-demo-btn about-link">About the Project</button>
+            <a
+                href="https://github.com/caseytuer/ezpickup"
+                className="form-demo-btn about-link">About the Project</a>
             </div>
         </div>
         
