@@ -1,5 +1,3 @@
-import { getGame } from "./game";
-
 const SET_PLAYERS = 'players/setPlayers';
 const ADD_PLAYER = 'players/addPlayer';
 const REMOVE_PLAYER = 'players/removePlayer';
@@ -9,10 +7,10 @@ const setPlayers = (players) => ({
     players,
 })
 
-const addPlayer = (player) => ({
-    type: ADD_PLAYER,
-    player,
-})
+// const addPlayer = (player) => ({
+//     type: ADD_PLAYER,
+//     player,
+// })
 
 const removePlayer = (player) => ({
     type: REMOVE_PLAYER,
@@ -25,7 +23,6 @@ export const getPlayers = (id) => async (dispatch) => {
     if (response.ok) {
         const { players } = await response.json();
         dispatch(setPlayers(players))
-        console.log(players)
         return players;
     } else {
         return ['An error occurred, please try again']

@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getAllGames } from '../../store/game';
-
-import UsersList from '../UsersList';
 import Map from '../Map';
 import './Games.css'
 
 const Games = () => {
 
-    const [users, setUsers] = useState([]);
+    // const [users, setUsers] = useState([]);
 
     const dispatch = useDispatch()
     const games = useSelector(state => state.game)
@@ -21,23 +19,23 @@ const Games = () => {
 
     const skillLevel = ['none', 'Beginner', 'Intermediate', 'Advanced', 'All Skills Welcome']
 
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch('/api/users/');
-            const responseData = await response.json();
-            setUsers(responseData.users);
-        }
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const response = await fetch('/api/users/');
+    //         const responseData = await response.json();
+    //         setUsers(responseData.users);
+    //     }
+    //     fetchData();
+    // }, [setUsers]);
 
     useEffect(() => {
         dispatch(getAllGames())
     }, [dispatch])
 
-    const findGameCreatorUsername = (id) => {
-        const user = users?.find(user => user.id === id);
-        return user?.username;
-    }
+    // const findGameCreatorUsername = (id) => {
+    //     const user = users?.find(user => user.id === id);
+    //     return user?.username;
+    // }
 
     const handleTime = (time) => {
         const militaryTime = time?.split(' ')[4]
@@ -57,7 +55,7 @@ const Games = () => {
 
     return (
         <>
-            {/* <div className="games-side-banner"/> */}
+            <div className="games-side-banner"/>
             <div className="games-page-canvas">
                 <div className="map-container-games">
                     <Map className="games-map" gamesArr={gamesArr}/>
@@ -79,8 +77,8 @@ const Games = () => {
                                         </span>
                                     </div>
                                     <div>
-                                        <span className="game-answer">{game.address}, </span>
-                                        <span className="game-answer">{game.city}, </span>
+                                        <span className="game-answer">{`📍${game.address}`}, </span>
+                                        <span className="game-answer">{`${game.city}`}, </span>
                                         <span className="game-answer">{game.state}</span>
                                     </div>
                                     {/* <div>
@@ -88,8 +86,8 @@ const Games = () => {
                                         {findGameCreatorUsername(game.creator_id)}
                                         </span>
                                     </div> */}
-                                    <div>Equipment: {game.equipment_needed}</div>
-                                    <div>{skillLevel[game?.skill_level]}</div>
+                                    <div>🏀 Equipment: {game.equipment_needed}</div>
+                                    <div>{`⛹️‍♀️ ${skillLevel[game?.skill_level]}`}</div>
                                 </div>
                                 <div className="time-and-date-container">
                                     <div className="game-answer-date">

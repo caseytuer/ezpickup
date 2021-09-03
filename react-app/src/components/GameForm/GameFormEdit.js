@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { createGame, updateGame } from '../../store/game';
+import { updateGame } from '../../store/game';
 import DateTime from 'react-datetime';
 import './GameForm.css'
 import 'react-datetime/css/react-datetime.css'
@@ -16,19 +16,19 @@ export const GameFormEdit = () => {
     const userId = useSelector((state) => state.session.user?.id);
 
 
-    const [title, setTitle] = useState(game.title);
-    const [sport, setSport] = useState(game.sport);
-    const [description, setDescription] = useState(game.description);
-    const [equipmentNeeded, setEquipmentNeeded] = useState(game.equipment_needed);
-    const [skillLevel, setSkillLevel] = useState(game.skill_level);
-    const [address, setAddress] = useState(game.address);
-    const [city, setCity] = useState(game.city);
-    const [state, setState] = useState(game.state);
-    const [country, setCountry] = useState(game.country);
-    const [lat, setLat] = useState(game.lat);
-    const [lng, setLng] = useState(game.lng);
-    const [startTime, setStartTime] = useState(game.start_time);
-    const [endTime, setEndTime] = useState(game.end_time)
+    const [title, setTitle] = useState(game?.title);
+    const [sport, setSport] = useState(game?.sport);
+    const [description, setDescription] = useState(game?.description);
+    const [equipmentNeeded, setEquipmentNeeded] = useState(game?.equipment_needed);
+    const [skillLevel, setSkillLevel] = useState(game?.skill_level);
+    const [address, setAddress] = useState(game?.address);
+    const [city, setCity] = useState(game?.city);
+    const [state, setState] = useState(game?.state);
+    const [country, setCountry] = useState(game?.country);
+    const [lat, setLat] = useState(game?.lat);
+    const [lng, setLng] = useState(game?.lng);
+    const [startTime, setStartTime] = useState(game?.start_time);
+    const [endTime, setEndTime] = useState(game?.end_time)
     const [errors, setErrors] = useState([])
 
     const setTitleETV = (e) => setTitle(e.target.value);
@@ -154,11 +154,13 @@ export const GameFormEdit = () => {
                     </div>
                     <div>
                         <DateTime
+                            initialValue={startTime}
                             inputProps={inputPropsStart}
                             onChange={value => setStartTime(handleDateTime(value._d))} />
                     </div>
                     <div>
                         <DateTime
+                            initialValue={endTime}
                             inputProps={inputPropsEnd}
                             onChange={value => {
                                 setEndTime(handleDateTime(value._d))

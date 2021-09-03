@@ -2,15 +2,13 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { deleteGame, getGame } from '../../store/game';
-import { updateGame } from '../../store/game';
 import { Link } from 'react-router-dom';
 import './Game.css'
-import bannerImage from '../../assets/images/bball-sillouette.png';
 import Map from '../Map';
 import trashIcon from '../../assets/images/trash-icon.png';
-import trashIconYellow from '../../assets/images/trash-icon-yellow.png';
+// import trashIconYellow from '../../assets/images/trash-icon-yellow.png';
 import penIcon from '../../assets/images/pen-icon.png';
-import penIconYellow from '../../assets/images/pen-icon-yellow.png';
+// import penIconYellow from '../../assets/images/pen-icon-yellow.png';
 import Comments from '../Comments';
 import { createPlayer, deletePlayer, getPlayers } from '../../store/player';
 
@@ -32,11 +30,10 @@ const Game = () => {
     }
 
     const currentPlayers = playersArr.filter(player => Number(player.game_id) === Number(gameId))
-    console.log(currentPlayers)
 
     const [users, setUsers] = useState([]);
     const [isJoined, setIsJoined] = useState(false);
-    const [errors, setErrors] = useState([]);
+    const [setErrors] = useState([]);
 
     useEffect(() => {
         if (currentPlayers.some(player => player?.player_id === user?.id)) {
@@ -44,7 +41,7 @@ const Game = () => {
         } else {
             setIsJoined(false)
         }
-    })
+    }, [currentPlayers, user?.id])
     // else {
     //     setIsJoined(false)
     // }
@@ -58,8 +55,6 @@ const Game = () => {
     } 
     
 
-    console.log(isJoined)
-
     useEffect(() => {
         async function fetchData() {
             const response = await fetch('/api/users/');
@@ -72,7 +67,7 @@ const Game = () => {
     useEffect(() => {
         dispatch(getGame(gameId));
         dispatch(getPlayers(gameId))
-    }, [dispatch])
+    }, [dispatch, gameId])
     
     
     const handleJoin = () => {
@@ -141,25 +136,25 @@ const Game = () => {
         }
     }
 
-    const hoverTrashIcon = () => {
-        const trashCanIcon = document.getElementById('trash-icon')
-        trashCanIcon.setAttribute('src', trashIconYellow)
-    }
+    // const hoverTrashIcon = () => {
+    //     const trashCanIcon = document.getElementById('trash-icon')
+    //     trashCanIcon.setAttribute('src', trashIconYellow)
+    // }
 
-    const unHoverTrashIcon = () => {
-        const trashCanIcon = document.getElementById('trash-icon')
-        trashCanIcon.setAttribute('src', trashIcon)
-    }
+    // const unHoverTrashIcon = () => {
+    //     const trashCanIcon = document.getElementById('trash-icon')
+    //     trashCanIcon.setAttribute('src', trashIcon)
+    // }
 
-    const hoverPenIcon = () => {
-        const penEditIcon = document.getElementById('pen-icon')
-        penEditIcon.setAttribute('src', penIconYellow)
-    }
+    // const hoverPenIcon = () => {
+    //     const penEditIcon = document.getElementById('pen-icon')
+    //     penEditIcon.setAttribute('src', penIconYellow)
+    // }
 
-    const unHoverPenIcon = () => {
-        const penEditIcon = document.getElementById('pen-icon')
-        penEditIcon.setAttribute('src', penIcon)
-    }
+    // const unHoverPenIcon = () => {
+    //     const penEditIcon = document.getElementById('pen-icon')
+    //     penEditIcon.setAttribute('src', penIcon)
+    // }
 
     const calendarDate = `${game?.start_time.split(' ')[2]} ${game?.start_time.split(' ')[1]}`
 
@@ -249,16 +244,16 @@ const Game = () => {
                             {user?.id === game?.creator_id && 
                                 <div className="edit-and-delete-btns">
                                     <Link to={`/games/edit/${gameId}`}
-                                        onMouseOver={hoverPenIcon}
-                                        onMouseOut={unHoverPenIcon}
+                                        // onMouseOver={hoverPenIcon}
+                                        // onMouseOut={unHoverPenIcon}
                                         className="delete-game-btn">
                                         <img src={penIcon} alt="" 
                                             className="delete-game-btn-icon"
                                             id="pen-icon"/>
                                         Edit Game</Link>
                                     <span onClick={handleDelete}
-                                        onMouseOver={hoverTrashIcon}
-                                        onMouseOut={unHoverTrashIcon}
+                                        // onMouseOver={hoverTrashIcon}
+                                        // onMouseOut={unHoverTrashIcon}
                                         className="delete-game-btn"> 
                                             <img src={trashIcon} alt="" 
                                             className="delete-game-btn-icon"

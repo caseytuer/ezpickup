@@ -20,6 +20,8 @@ const SignUpForm = () => {
       if (data) {
         setErrors(data)
       }
+    } else {
+      setErrors(["Passwords must match."])
     }
   };
 
@@ -52,7 +54,7 @@ const SignUpForm = () => {
       <div className="form-container">
         <form onSubmit={onSignUp}>
           <div>
-            {errors.map((error, ind) => (
+            {errors && errors.map((error, ind) => (
               <div key={ind}>{error}</div>
             ))}
           </div>
@@ -61,7 +63,7 @@ const SignUpForm = () => {
               placeholder="full name"
               className="form-input-field"
               type='text'
-              name='full_name'
+              name='Full Name'
               onChange={updateFullName}
               value={fullName}
             ></input>
@@ -71,7 +73,7 @@ const SignUpForm = () => {
               placeholder="username"
               className="form-input-field"
               type='text'
-              name='username'
+              name='Username'
               onChange={updateUsername}
               value={username}
             ></input>
@@ -81,7 +83,7 @@ const SignUpForm = () => {
               placeholder="email"
               className="form-input-field"
               type='text'
-              name='email'
+              name='Email'
               onChange={updateEmail}
               value={email}
             ></input>
@@ -91,7 +93,7 @@ const SignUpForm = () => {
               placeholder="password"
               className="form-input-field"
               type='password'
-              name='password'
+              name='Password'
               onChange={updatePassword}
               value={password}
             ></input>
@@ -101,7 +103,7 @@ const SignUpForm = () => {
               placeholder="confirm password"
               className="form-input-field"
               type='password'
-              name='repeat_password'
+              name='Repeat Password'
               onChange={updateRepeatPassword}
               value={repeatPassword}
               required={true}

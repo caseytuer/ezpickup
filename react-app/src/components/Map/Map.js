@@ -1,14 +1,13 @@
 import GoogleMapReact from 'google-map-react';
-import { useEffect } from 'react';
-import { getAllGames } from '../../store/game';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import mapPin from '../../assets/images/bball-map-pin.png'
 import './Map.css'
 
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 const Map = ({gamesArr, game}) => {
+
+    const history = useHistory();
 
     const MAPS_API_KEY = process.env.REACT_APP_MAPS_API_KEY;
 
@@ -29,12 +28,25 @@ const Map = ({gamesArr, game}) => {
             zoom: 15,
         }
     }
+    let gameId;
+    const routeToGame = () => {
+        history.push(`/games/${gameId}`)
+    }
 
     const Marker = ({ lat, lng }) => (
         <div >
-            <img className="map-marker" src={mapPin} alt=""></img>
+            <img
+            className="map-marker" src={mapPin} alt=""></img>
         </div>
     );
+
+    // const MarkerLink = ({ lat, lng }) => (
+    //     <div >
+    //         <img className="map-marker" src={mapPin} alt="" onClick={routeToGame}></img>
+    //     </div>
+    // )
+
+    
    
 
     return (
@@ -47,7 +59,7 @@ const Map = ({gamesArr, game}) => {
                 defaultCenter={props.center}
                 defaultZoom={props.zoom}
             >
-                {game && 
+                {game ? 
                 <div
                     lat={game.lat}
                     lng={game.lng}
@@ -55,23 +67,25 @@ const Map = ({gamesArr, game}) => {
                 >
                     <Marker/>
                 </div>
-                }
-                {gamesArr && gamesArr.map(game => (
-                    <Link 
-                    key={game.id} 
+                : gamesArr?.map(game => {
+                    gameId=game.id;
+                    return (
+                    <Link
                     to={`/games/${game.id}`}
+                    key={game.id} 
                     lat={game.lat}
                     lng={game.lng}
                     text={game.title}
                     >
                         <Marker/>
                     </Link>
-                ))}
+                )})}
                 {/* <AnyReactComponent
                     lat={59.955413}
                     lng={30.337844}
                     text="My Marker"
                 /> */}
+                
             </GoogleMapReact>
         </div>
     );

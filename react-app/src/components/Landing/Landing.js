@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { login } from '../../store/session'
-import landingHoop from '../../assets/images/landing-hoop.jpg'
 import './Landing.css'
 import { useHistory } from 'react-router-dom'
 
@@ -12,7 +11,7 @@ const Landing = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const [errors, setErrors] = useState([]);
+    const [setErrors] = useState([]);
 
     const onDemoLogin = async (e) => {
         e.preventDefault();
