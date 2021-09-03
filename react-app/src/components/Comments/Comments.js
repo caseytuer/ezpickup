@@ -110,25 +110,25 @@ const Comments = ({ users }) => {
         dispatch(deleteComment(comment.id))
     }
 
-    // const hoverTrashIcon = (comment) => {
-    //     const trashCanIconComment = document?.getElementById(`delete-comment-btn-${comment?.id}`)
-    //     trashCanIconComment.setAttribute('src', trashIconYellow)
-    // }
+    const hoverTrashIcon = (comment) => {
+        const trashCanIconComment = document?.getElementById(`delete-comment-btn-${comment?.id}`)
+        trashCanIconComment.setAttribute('src', trashIconYellow)
+    }
 
-    // const unHoverTrashIcon = (comment) => {
-    //     const trashCanIconComment = document?.getElementById(`delete-comment-btn-${comment?.id}`)
-    //     trashCanIconComment.setAttribute('src', trashIcon)
-    // }
+    const unHoverTrashIcon = (comment) => {
+        const trashCanIconComment = document?.getElementById(`delete-comment-btn-${comment?.id}`)
+        trashCanIconComment.setAttribute('src', trashIcon)
+    }
 
-    // const hoverPenIcon = (comment) => {
-    //     const penEditIconComment = document?.getElementById(`edit-comment-btn-${comment?.id}`)
-    //     penEditIconComment.setAttribute('src', penIconYellow)
-    // }
+    const hoverPenIcon = (comment) => {
+        const penEditIconComment = document?.getElementById(`edit-comment-btn-${comment?.id}`)
+        penEditIconComment.setAttribute('src', penIconYellow)
+    }
 
-    // const unHoverPenIcon = (comment) => {
-    //     const penEditIconComment = document?.getElementById(`edit-comment-btn-${comment?.id}`)
-    //     penEditIconComment.setAttribute('src', penIcon)
-    // }
+    const unHoverPenIcon = (comment) => {
+        const penEditIconComment = document?.getElementById(`edit-comment-btn-${comment?.id}`)
+        penEditIconComment.setAttribute('src', penIcon)
+    }
 
 
     return (
@@ -169,16 +169,16 @@ const Comments = ({ users }) => {
                 <div 
                 >
                         <img 
-                        // onMouseOver={e => hoverTrashIcon(comment)}
-                        // onMouseOut={e => unHoverTrashIcon(comment)}
+                        onMouseOver={e => hoverTrashIcon(comment)}
+                        onMouseOut={e => unHoverTrashIcon(comment)}
                         src={trashIcon}
                         alt=""
                         id={`delete-comment-btn-${comment?.id}`}
                         className="delete-comment-btn"
                         onClick={e => handleDelete(e, comment)}></img>
                         <img 
-                        // onMouseOver={e => hoverPenIcon(comment)}
-                        // onMouseOut={e => unHoverPenIcon(comment)}
+                        onMouseOver={e => hoverPenIcon(comment)}
+                        onMouseOut={e => unHoverPenIcon(comment)}
                         src={penIcon}
                         alt=""
                         id={`edit-comment-btn-${comment?.id}`} 
