@@ -21,7 +21,7 @@ const Comments = ({ users }) => {
     const user = useSelector(state => state.session.user)
 
     const [comment, setComment] = useState('');
-    const [errors, setErrors] = useState([]);
+    const [setErrors] = useState([]);
     const [editComment, setEditComment] = useState('')
 
     let commentsArr;

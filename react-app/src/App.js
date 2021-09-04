@@ -13,6 +13,7 @@ import Games from './components/Games';
 import GameForm from './components/GameForm';
 import GameFormEdit from './components/GameForm/GameFormEdit';
 import Landing from './components/Landing';
+import Footer from './components/Footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -32,6 +33,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      <Footer />
       <Switch>
         <Route path='/' exact={true}>
           <Landing />

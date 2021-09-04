@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { createGame, updateGame } from '../../store/game';
+import { updateGame } from '../../store/game';
 import DateTime from 'react-datetime';
 import './GameForm.css'
 import 'react-datetime/css/react-datetime.css'
@@ -16,19 +16,35 @@ export const GameFormEdit = () => {
     const userId = useSelector((state) => state.session.user?.id);
 
 
-    const [title, setTitle] = useState(game.title);
-    const [sport, setSport] = useState(game.sport);
-    const [description, setDescription] = useState(game.description);
-    const [equipmentNeeded, setEquipmentNeeded] = useState(game.equipment_needed);
-    const [skillLevel, setSkillLevel] = useState(game.skill_level);
-    const [address, setAddress] = useState(game.address);
-    const [city, setCity] = useState(game.city);
-    const [state, setState] = useState(game.state);
-    const [country, setCountry] = useState(game.country);
-    const [lat, setLat] = useState(game.lat);
-    const [lng, setLng] = useState(game.lng);
-    const [startTime, setStartTime] = useState(game.start_time);
-    const [endTime, setEndTime] = useState(game.end_time)
+    const handleEditDateTime = (dateTime) => {
+        const units = String(dateTime).split(' ');
+        const calender = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        let year = units[3];
+        let day = units[1]
+        let time = units[4];
+        let month = String(calender.indexOf(units[2]) + 1);
+        if (units.length > 6) {
+            day = units[2];
+            month = String(calender.indexOf(units[1]) + 1);
+        }
+        // console.log(day)
+        return `${year}-${month}-${day} ${time}`
+    }
+
+
+    const [title, setTitle] = useState(game?.title);
+    const [sport, setSport] = useState(game?.sport);
+    const [description, setDescription] = useState(game?.description);
+    const [equipmentNeeded, setEquipmentNeeded] = useState(game?.equipment_needed);
+    const [skillLevel, setSkillLevel] = useState(game?.skill_level);
+    const [address, setAddress] = useState(game?.address);
+    const [city, setCity] = useState(game?.city);
+    const [state, setState] = useState(game?.state);
+    const [country, setCountry] = useState(game?.country);
+    const [lat, setLat] = useState(game?.lat);
+    const [lng, setLng] = useState(game?.lng);
+    const [startTime, setStartTime] = useState(handleEditDateTime(game?.start_time));
+    const [endTime, setEndTime] = useState(handleEditDateTime(game?.end_time))
     const [errors, setErrors] = useState([])
 
     const setTitleETV = (e) => setTitle(e.target.value);
@@ -78,15 +94,37 @@ export const GameFormEdit = () => {
 
     // const startTimeCalender = document.querySelector('start-time-calender')
 
-    const handleDateTime = (dateTime) => {
-        const units = String(dateTime).split(' ');
-        const calender = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        let year = units[3];
-        let day = units[2];
-        let time = units[4];
-        let month = String(calender.indexOf(units[1]) + 1);
-        return `${year}-${month}-${day} ${time}`
-    }
+    // const handleDateTime = (dateTime) => {
+    //     const units = String(dateTime).split(' ');
+    //     const calender = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    //     let year = units[3];
+    //     let day = units[2];
+    //     let time = units[4];
+    //     let month = String(calender.indexOf(units[1]) + 1);
+    //     return `${year}-${month}-${day} ${time}`
+    // }
+
+    // console.log(handleDateTime(startTime))
+
+    // const handleEditDateTime = (dateTime) => {
+    //     console.log(endTime)
+    //     console.log(dateTime)
+    //     const units = String(dateTime).split(' ');
+    //     const calender = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    //     let year = units[3];
+    //     let day = units[1]
+    //     let time = units[4];
+    //     let month = String(calender.indexOf(units[2]) + 1);
+    //     if (units.length > 6) {
+    //         day = units[2];
+    //         month = String(calender.indexOf(units[1]) + 1);
+    //     }
+    //     // console.log(day)
+    //     return `${year}-${month}-${day} ${time}`
+    // }
+    // console.log(handleEditDateTime(startTime));
+
+
 
     let inputPropsStart = {
         required: true,
@@ -99,6 +137,8 @@ export const GameFormEdit = () => {
         placeholder: 'End Time',
         className: "form-input-field",
     }
+
+    // console.log(startTime)
 
     return (
         <div className="form-page-canvas">
@@ -145,6 +185,7 @@ export const GameFormEdit = () => {
                     </div>
                     <div>
                         <select onChange={setSkillLevelETV}
+                        defaultValue={skillLevel}
                             className="form-input-field">
                             <option value={1}>Beginner</option>
                             <option value={2}>Intermediate</option>
@@ -154,14 +195,16 @@ export const GameFormEdit = () => {
                     </div>
                     <div>
                         <DateTime
+                            initialValue={startTime}
                             inputProps={inputPropsStart}
-                            onChange={value => setStartTime(handleDateTime(value._d))} />
+                            onChange={(value) => setStartTime(handleEditDateTime(value._d))} />
                     </div>
                     <div>
                         <DateTime
+                            initialValue={endTime}
                             inputProps={inputPropsEnd}
                             onChange={value => {
-                                setEndTime(handleDateTime(value._d))
+                                setEndTime(handleEditDateTime(value._d))
                             }} />
                     </div>
                     <div>

@@ -1,33 +1,200 @@
-.map-container {
-    margin-top: 65px;
-}
-
 .games-container {
-}
-
-.game-container-wrapper {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    width: 65%;
+    height: 100%;
+    background-color: white;
+    overflow: scroll;
+    /* padding: 20px; */
+    border: 1px solid #eeeeef;
+    /* box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); */
+}
+
+.title-message {
+    display: flex;
+    /* justify-content: center; */
     align-items: center;
+    font-size: 40px;
+    font-weight: 900;
+    padding: 20px;
+    padding-bottom: 0;
+    /* margin-left: 3px; */
+}
+
+.title-top-div {
+    width: 100%;
+}
+
+.title-middle-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-middle-address {
+    width: 300px;
+}
+
+.game-answer {
+    font-size: 15px;
+    padding-bottom: 5px;
 }
 
 .game-container {
-    width: 70%;
+    width: auto;
     padding: 20px;
+    /* margin-bottom: 5px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #eeeeef;
+    margin: 20px;
+    margin-bottom: 0%;
+    /* box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); */
+    background-color: white;
 }
 
-.game-container-wrapper:hover {
-    background-color: #FFD700;
+.game-container:hover {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .game-card-title {
     font-size: 25px;
     font-weight: 900;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
-.game-answer {
+.game-answer-sport {
+    font-size: 15px;
+    padding: 3px 5px;
+    font-weight: 700;
+    color: #FFD700;
+    background-color: black;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin-left: 10px;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+}
+
+.games-page-description {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    font-size: 12px;
+}
+
+.time-and-date-container {
+    /* position: absolute; */
+    /* right: 20%; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.games-side-banner {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    z-index: -1;
+    background-image: url(../../assets/images/soccer.jpeg);
+    background-size: cover;
+    background-position: 20% 60%;
+     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.games-page-canvas {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 4.5%;
+    /* margin-top: 12%; */
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.map-container-games {
+    width: 35%;
+    height: 100%;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    /* margin-bottom: 10px; */
+}
+
+.games-icon {
     font-size: 20px;
-    font-weight: 900;
+}
+
+.games-info {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+/* ::-webkit-scrollbar {
+    display: none;
+} */
+/* ::-webkit-scrollbar-thumb {
+    background-color: #FFD700;
+} */
+
+@media only screen and (max-width: 1440px) {
+  .map-container-games {
+    width: 80%;
+    height: 60%;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin-bottom: 0px;
+}
+.games-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 65%;
+    background-color: white;
+    overflow: scroll;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.games-page-canvas {
+    position: absolute;
+    bottom: 0;
+    /* margin-top: 5%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 87%;
+}
+}
+@media only screen and (max-width: 1000px) {
+  .map-container-games {
+    width: 100%;
+    height: 60%;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin-bottom: 0px;
+}
+.games-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 65%;
+    background-color: white;
+    overflow: scroll;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.games-page-canvas {
+    position: absolute;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+}
 }

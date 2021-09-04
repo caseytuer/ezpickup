@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createGame } from '../../store/game';
@@ -39,8 +39,6 @@ export const GameForm = () => {
     const setCountryETV = (e) => setCountry(e.target.value)
     const setLatETV = (e) => setLat(e.target.value)
     const setLngETV = (e) => setLng(e.target.value)
-    const setStartTimeETV = (e) => setStartTime(e.target.value)
-    const setEndTimeETV = (e) => setEndTime(e.target.value)
 
     const onFormSubmit = (e) => {
         e.preventDefault();
