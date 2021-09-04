@@ -61,17 +61,18 @@ const Games = () => {
                     <Map className="games-map" gamesArr={gamesArr}/>
                 </div>
                 <div className="games-container">
-                    <div className="title-message">Upcoming Games</div>
+                    <div className="title-message">Find Games</div>
                     {gamesArr.map((game, idx) => 
                         <div key={idx} className="game-container-wrapper">
 
-                            <div className="game-container">
+                            <Link className="game-container"
+                                to={`/games/${game.id}`}>
                                 <div className="title-top-div">
                                     <div className="game-card-title">
                                         <span>
-                                        <Link to={`/games/${game.id}`}>
-                                            {`${game.title}  `}
-                                        </Link>
+                                        <div >
+                                            {`${idx+1}. ${game.title}  `}
+                                        </div>
                                         </span>
                                         <span className="game-answer-sport">
                                         {game.sport}
@@ -82,8 +83,11 @@ const Games = () => {
                                 <div className="title-middle-div">
                                 <div className="title-middle-address"
                                 >
-                                    <div>
-                                        <span className="game-answer">{`📍${game.address}`}, </span>
+                                    <div className="games-info">
+                                        <span className="game-answer">
+                                                <i class="fas fa-map-marked-alt games-icon">
+                                                </i>
+                                            {` ${game.address},`} </span>
                                         <span className="game-answer">{`${game.city}`}, </span>
                                         <span className="game-answer">{game.state}</span>
                                     </div>
@@ -92,8 +96,12 @@ const Games = () => {
                                         {findGameCreatorUsername(game.creator_id)}
                                         </span>
                                     </div> */}
-                                    <div>🏀 Equipment: {game.equipment_needed}</div>
-                                    <div>{`⛹️‍♀️ ${skillLevel[game?.skill_level]}`}</div>
+                                    <div className="games-info"> 
+                                            <i class="fas fa-football-ball games-icon "></i>
+                                        {`  Equipment: ${game.equipment_needed}`}</div>
+                                    <div className="games-info">
+                                            <i class="fas fa-tachometer-alt games-icon"></i>
+                                        {` ${skillLevel[game?.skill_level]}`}</div>
                                 </div>
                                 <div className="games-page-description">{`"${game?.description}"`}
                                     <span className="games-page-host">
@@ -109,7 +117,7 @@ const Games = () => {
                                 </div>
 
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     )}
                 </div>
