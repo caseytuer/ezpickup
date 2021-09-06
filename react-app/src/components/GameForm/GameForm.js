@@ -40,7 +40,7 @@ export const GameForm = () => {
     const setLatETV = (e) => setLat(e.target.value)
     const setLngETV = (e) => setLng(e.target.value)
 
-    const onFormSubmit = (e) => {
+    const onFormSubmit = async (e) => {
         e.preventDefault();
 
         const payload = {
@@ -59,20 +59,14 @@ export const GameForm = () => {
             start_time: startTime,
             end_time: endTime,
         }
-        setErrors([]);
-        dispatch(createGame(payload))
-        .then( (data) => {
-            if (data && data.id) {
-                history.push(`/games/${data.id}`);
+        const data = await dispatch(createGame(payload));
+        if (data && data.id) {
+            history.push(`/games/${data.id}`);
                 window.location.reload();
-            }
-        }).catch(async (res) => {
-            const data = res;
-            if (data && data.errors) setErrors(data.errors);
-        })
+        } else {
+            setErrors(data)
+        }
     }
-
-    // const startTimeCalender = document.querySelector('start-time-calender')
 
     const handleDateTime = (dateTime) => {
         const units = String(dateTime).split(' ');
@@ -98,12 +92,13 @@ export const GameForm = () => {
 
     return (
         <div className="form-page-canvas">
-            <div className="form-container">
+            <div className="game-form-container">
                 <form onSubmit={onFormSubmit}>
-                    <ul>
-                        {errors.map((error, idx) => 
-                            <li key={idx}>{error}</li>)}
-                    </ul>
+                    <div className="form-errors-container">
+                        {errors && errors.map((error, idx) => (
+                            <div className="form-errors" key={idx}>{error}</div>
+                            ))}
+                    </div>
                     <div>
                         <input
                             className="form-input-field"
@@ -128,6 +123,7 @@ export const GameForm = () => {
                             className="form-input-field"
                             placeholder='Description'
                             value={description}
+                            required
                             onChange={setDescriptionETV}
                         />
                     </div>
@@ -135,6 +131,7 @@ export const GameForm = () => {
                         <input
                             className="form-input-field"
                             placeholder='Equipment Needed'
+                            required
                             value={equipmentNeeded}
                             onChange={setEquipmentNeededETV}
                         />

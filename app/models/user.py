@@ -7,10 +7,11 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    full_name = db.Column(db.String, nullable=False)
+    full_name = db.Column(db.String(50), nullable=False)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    profile_image = db.Column(db.String)
 
     game_relation = db.relationship('Game', back_populates='user_relation')
     player_relation = db.relationship('Player', back_populates='user_relation')
@@ -32,5 +33,6 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'full_name': self.full_name,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'profile_image': self.profile_image
         }

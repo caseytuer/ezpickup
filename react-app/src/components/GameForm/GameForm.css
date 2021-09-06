@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     margin-right: 0;
+    margin-top: 100px;
 }
 
 .form-input-field {
@@ -15,8 +16,17 @@
     padding: 1em;
 }
 
-.form-container {
+.game-form-container {
+    position: absolute;
+    top: 20%;
+    background-color: white;
+    display: flex;
     height: auto;
+    min-width: 500px;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5em;
+    border-radius: 7px;
 }
 
 .form-btn {
@@ -31,4 +41,35 @@
     cursor: pointer;
     background-color: black;
     color: #FFD700;
+}
+
+.form-errors {
+    color: red;
+    font-weight: 900;
+}
+
+.form-errors-container {
+    position: relative;
+}
+
+@media only screen and (max-width: 1000px) {
+    
+    input.form-input-field {
+        width: 700px;
+    }
+
+    .game-form-container {
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    
+    input.form-input-field {
+        width: 90vw;
+    }
+
+    .game-form-container {
+        height: auto;
+    }
 }

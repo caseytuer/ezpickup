@@ -10,11 +10,18 @@ games_routes = Blueprint('games', __name__)
 #############################################################
 
 def validation_errors_to_error_messages(validation_errors):
-    # helper function to collect and display errors
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
     errorMessages = []
     for field in validation_errors:
         for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
+            words = field.split('_')
+            capwords = []
+            for w in words:
+                capwords.append(w.capitalize())
+            string = (' ').join(capwords)
+            errorMessages.append(f'{string} : {error}')
     return errorMessages
 
 
@@ -93,7 +100,7 @@ def edit_game(id):
         db.session.commit()
         return game.to_dict()
     else:
-        return {'error': 'Something went wrong'}, 405
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @games_routes.route('/<int:id>', methods=['DELETE'])

@@ -64,7 +64,12 @@ export const createGame = (payload) => async (dispatch) => {
     if (response.ok) {
         const game = await response.json();
         await dispatch(addGame(game));
-        return game
+        return game;
+    } else if (response.status < 500) {
+        const game = await response.json();
+        if (game.errors) {
+            return game.errors;
+        }
     } else {
         return ['An error occurred, please try again']
     }
@@ -80,6 +85,11 @@ export const updateGame = (payload) => async (dispatch) => {
         const game = await response.json();
         await dispatch(editGame(game));
         return game;
+    } else if (response.status < 500) {
+        const game = await response.json();
+        if (game.errors) {
+            return game.errors;
+        }
     } else {
         return ['An error occurred, please try again']
     }

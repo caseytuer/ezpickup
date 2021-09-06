@@ -11,7 +11,7 @@ const Landing = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const [setErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     const onDemoLogin = async (e) => {
         e.preventDefault();

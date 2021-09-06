@@ -19,14 +19,6 @@ const Games = () => {
 
     const skillLevel = ['none', 'Beginner', 'Intermediate', 'Advanced', 'All Skills Welcome']
 
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const response = await fetch('/api/users/');
-    //         const responseData = await response.json();
-    //         setUsers(responseData.users);
-    //     }
-    //     fetchData();
-    // }, [setUsers]);
 
     useEffect(() => {
         dispatch(getAllGames())

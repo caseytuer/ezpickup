@@ -21,7 +21,7 @@ const Comments = ({ users }) => {
     const user = useSelector(state => state.session.user)
 
     const [comment, setComment] = useState('');
-    const [setErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
     const [editComment, setEditComment] = useState('')
 
     let commentsArr;
@@ -157,8 +157,8 @@ const Comments = ({ users }) => {
             {commentsArr?.map((comment) => 
             <div key={comment.id}
             className="comment-container">
-                <div>
-                    <img src={userAvatar} alt=""
+                <div className="user-avatar-and-name">
+                    <img src={commentUser(comment)?.profile_image} alt=""
                     className="comment-user-avatar"></img>
                     <div>{commentUser(comment)?.username}</div>
                 </div>
