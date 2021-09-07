@@ -7,8 +7,7 @@
     margin-right: 0;
 }
 
-.form-container {
-    margin-top: 100px;
+.login-form-container {
     background-color: white;
     display: flex;
     height: auto;
@@ -16,7 +15,20 @@
     justify-content: center;
     padding: 1.5em;
     border-radius: 7px;
-    /* position: absolute; */
+    position: absolute;
+    top: 40%;
+}
+
+.form-container {
+    background-color: white;
+    display: flex;
+    height: auto;
+    min-width: 500px;
+    justify-content: center;
+    padding: 1.5em;
+    border-radius: 7px;
+    position: absolute;
+    top: 25%;
 }
 
 .form-btn {
@@ -62,4 +74,10 @@ select.form-input-field {
     border-radius: 4px;
     background-color: transparent;
     padding: 1em;
+}
+
+.profile-image-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
 }

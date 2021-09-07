@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createGame } from '../../store/game';
+import { createPlayer } from '../../store/player';
 import DateTime from 'react-datetime';
+import Geocode from 'react-geocode'
 import './GameForm.css'
 import 'react-datetime/css/react-datetime.css'
 
@@ -40,7 +42,7 @@ export const GameForm = () => {
     const setLatETV = (e) => setLat(e.target.value)
     const setLngETV = (e) => setLng(e.target.value)
 
-    const onFormSubmit = (e) => {
+    const onFormSubmit = async (e) => {
         e.preventDefault();
 
         const payload = {
@@ -59,20 +61,29 @@ export const GameForm = () => {
             start_time: startTime,
             end_time: endTime,
         }
-        setErrors([]);
-        dispatch(createGame(payload))
-        .then( (data) => {
-            if (data && data.id) {
-                history.push(`/games/${data.id}`);
-                window.location.reload();
+        const data = await dispatch(createGame(payload));
+        if (data && data.id) {
+            history.push(`/games`);
+            const payload = {
+                player_id: data.creator_id,
+                game_id: data.id
             }
-        }).catch(async (res) => {
-            const data = res;
-            if (data && data.errors) setErrors(data.errors);
-        })
-    }
+            setErrors([]);
+            dispatch(createPlayer(payload))
+            .then((data) => {
+                if (data && data.id) {
+                    history.push(`/games/${data.game_id}`);
+                    window.location.reload();
+                    }
+                }).catch(async (res) => {
+                    const data = res;
+                    if (data && data.errors) setErrors(data.errors)
+                })
 
-    // const startTimeCalender = document.querySelector('start-time-calender')
+        } else {
+            setErrors(data)
+        }
+    }
 
     const handleDateTime = (dateTime) => {
         const units = String(dateTime).split(' ');
@@ -96,14 +107,30 @@ export const GameForm = () => {
         className: "form-input-field",
     }
 
+    const MAPS_API_KEY = process.env.REACT_APP_MAPS_API_KEY;
+
+    Geocode.setApiKey(MAPS_API_KEY);
+
+    if (address && city && state) {
+        Geocode.fromAddress(`${address}, ${city}, ${state}`).then(
+            (response) => {
+                const { lat, lng } = response.results[0].geometry.location;
+                setLat(lat);
+                setLng(lng);
+            }
+        
+        )
+    }
+
     return (
         <div className="form-page-canvas">
-            <div className="form-container">
+            <div className="game-form-container">
                 <form onSubmit={onFormSubmit}>
-                    <ul>
-                        {errors.map((error, idx) => 
-                            <li key={idx}>{error}</li>)}
-                    </ul>
+                    <div className="form-errors-container">
+                        {errors && errors.map((error, idx) => (
+                            <div className="form-errors" key={idx}>{error}</div>
+                            ))}
+                    </div>
                     <div>
                         <input
                             className="form-input-field"
@@ -128,6 +155,7 @@ export const GameForm = () => {
                             className="form-input-field"
                             placeholder='Description'
                             value={description}
+                            required
                             onChange={setDescriptionETV}
                         />
                     </div>
@@ -135,6 +163,7 @@ export const GameForm = () => {
                         <input
                             className="form-input-field"
                             placeholder='Equipment Needed'
+                            required
                             value={equipmentNeeded}
                             onChange={setEquipmentNeededETV}
                         />
@@ -193,24 +222,6 @@ export const GameForm = () => {
                             placeholder='Country'
                             value={country}
                             onChange={setCountryETV}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            className="form-input-field"
-                            required
-                            placeholder='Latitude'
-                            value={lat}
-                            onChange={setLatETV}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            className="form-input-field"
-                            placeholder='Longitude'
-                            required
-                            value={lng}
-                            onChange={setLngETV}
                         />
                     </div>
                     <div>

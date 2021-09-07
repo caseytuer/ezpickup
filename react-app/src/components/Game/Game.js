@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import './Game.css'
 import Map from '../Map';
 import trashIcon from '../../assets/images/trash-icon.png';
-// import trashIconYellow from '../../assets/images/trash-icon-yellow.png';
+import trashIconYellow from '../../assets/images/trash-icon-yellow.png';
 import penIcon from '../../assets/images/pen-icon.png';
-// import penIconYellow from '../../assets/images/pen-icon-yellow.png';
+import penIconYellow from '../../assets/images/pen-icon-yellow.png';
 import Comments from '../Comments';
 import { createPlayer, deletePlayer, getPlayers } from '../../store/player';
 
@@ -33,7 +33,7 @@ const Game = () => {
 
     const [users, setUsers] = useState([]);
     const [isJoined, setIsJoined] = useState(false);
-    const [setErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         if (currentPlayers.some(player => player?.player_id === user?.id)) {
@@ -119,6 +119,10 @@ const Game = () => {
         return user
     }
 
+    // const getCreatorImg = (game) => {
+    //     const creatorImg = users?.find(user => user?.id === game)
+    // }
+
     const skillLevel = ['none', 'Beginner', 'Intermediate', 'Advanced', 'All Skills Welcome']
 
     const handleTime = (time) => {
@@ -136,25 +140,25 @@ const Game = () => {
         }
     }
 
-    // const hoverTrashIcon = () => {
-    //     const trashCanIcon = document.getElementById('trash-icon')
-    //     trashCanIcon.setAttribute('src', trashIconYellow)
-    // }
+    const hoverTrashIcon = () => {
+        const trashCanIcon = document.getElementById('trash-icon')
+        trashCanIcon.setAttribute('src', trashIconYellow)
+    }
 
-    // const unHoverTrashIcon = () => {
-    //     const trashCanIcon = document.getElementById('trash-icon')
-    //     trashCanIcon.setAttribute('src', trashIcon)
-    // }
+    const unHoverTrashIcon = () => {
+        const trashCanIcon = document.getElementById('trash-icon')
+        trashCanIcon.setAttribute('src', trashIcon)
+    }
 
-    // const hoverPenIcon = () => {
-    //     const penEditIcon = document.getElementById('pen-icon')
-    //     penEditIcon.setAttribute('src', penIconYellow)
-    // }
+    const hoverPenIcon = () => {
+        const penEditIcon = document.getElementById('pen-icon')
+        penEditIcon.setAttribute('src', penIconYellow)
+    }
 
-    // const unHoverPenIcon = () => {
-    //     const penEditIcon = document.getElementById('pen-icon')
-    //     penEditIcon.setAttribute('src', penIcon)
-    // }
+    const unHoverPenIcon = () => {
+        const penEditIcon = document.getElementById('pen-icon')
+        penEditIcon.setAttribute('src', penIcon)
+    }
 
     const calendarDate = `${game?.start_time.split(' ')[2]} ${game?.start_time.split(' ')[1]}`
 
@@ -204,7 +208,7 @@ const Game = () => {
                                 game-page-description">
                                 {`"${game?.description}"`}
                                 <div className="game-description-user">
-                                <img className="host-img" src={'https://ezpickupsports.s3.us-west-1.amazonaws.com/demo-host.jpeg'} alt=''></img>
+                                <img className="host-img" src={findCreator(game)?.profile_image} alt=''></img>
                                 <div>
                                     <div>
                                         {`${findCreator(game)?.username}`}
@@ -244,16 +248,16 @@ const Game = () => {
                             {user?.id === game?.creator_id && 
                                 <div className="edit-and-delete-btns">
                                     <Link to={`/games/edit/${gameId}`}
-                                        // onMouseOver={hoverPenIcon}
-                                        // onMouseOut={unHoverPenIcon}
+                                        onMouseOver={hoverPenIcon}
+                                        onMouseOut={unHoverPenIcon}
                                         className="delete-game-btn">
                                         <img src={penIcon} alt="" 
                                             className="delete-game-btn-icon"
                                             id="pen-icon"/>
                                         Edit Game</Link>
                                     <span onClick={handleDelete}
-                                        // onMouseOver={hoverTrashIcon}
-                                        // onMouseOut={unHoverTrashIcon}
+                                        onMouseOver={hoverTrashIcon}
+                                        onMouseOut={unHoverTrashIcon}
                                         className="delete-game-btn"> 
                                             <img src={trashIcon} alt="" 
                                             className="delete-game-btn-icon"
@@ -264,6 +268,7 @@ const Game = () => {
                             }
                 <div className="game-page-map-container">
                     <Map game={game} />
+                    <div className="game-page-address">{`${game?.address}, ${game?.city}, ${game?.state}`}</div>
                 </div>
             <div className="comments-canvas">
                 <Comments users={users}/>

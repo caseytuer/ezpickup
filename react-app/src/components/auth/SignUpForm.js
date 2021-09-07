@@ -10,18 +10,19 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [profileImage, setProfileImage] = useState('https://freesvg.org/img/abstract-user-flat-3.png')
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(fullName, username, email, password));
+      const data = await dispatch(signUp(fullName, username, email, password, profileImage));
       if (data) {
         setErrors(data)
       }
     } else {
-      setErrors(["Passwords must match."])
+      setErrors(["Passwords must match"])
     }
   };
 
@@ -45,6 +46,10 @@ const SignUpForm = () => {
     setRepeatPassword(e.target.value);
   };
 
+  const updateProfileImage = (e) => {
+    setProfileImage(e.target.value);
+  }
+
   if (user) {
     return <Redirect to='/games' />;
   }
@@ -55,9 +60,13 @@ const SignUpForm = () => {
         <form onSubmit={onSignUp}>
           <div>
             {errors && errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
-            ))}
+              <div className="form-errors" key={ind}>{error}</div>
+              ))}
           </div>
+              {profileImage && 
+                <div>
+                <img className="profile-image-preview" src={profileImage} alt=""></img>
+              </div>}
           <div>
             <input
               placeholder="full name"
@@ -66,6 +75,7 @@ const SignUpForm = () => {
               name='Full Name'
               onChange={updateFullName}
               value={fullName}
+              required={true}
             ></input>
           </div>
           <div>
@@ -76,16 +86,18 @@ const SignUpForm = () => {
               name='Username'
               onChange={updateUsername}
               value={username}
+              required={true}
             ></input>
           </div>
           <div>
             <input
               placeholder="email"
               className="form-input-field"
-              type='text'
+              type='email'
               name='Email'
               onChange={updateEmail}
               value={email}
+              required={true}
             ></input>
           </div>
           <div>
@@ -96,6 +108,7 @@ const SignUpForm = () => {
               name='Password'
               onChange={updatePassword}
               value={password}
+              required={true}
             ></input>
           </div>
           <div>
@@ -107,6 +120,15 @@ const SignUpForm = () => {
               onChange={updateRepeatPassword}
               value={repeatPassword}
               required={true}
+            ></input>
+          </div>
+          <div>
+            <input
+              placeholder="Profile Image URL (optional)"
+              className="form-input-field"
+              type='text'
+              name='Profile Image'
+              onChange={updateProfileImage}
             ></input>
           </div>
           <button type='submit'
