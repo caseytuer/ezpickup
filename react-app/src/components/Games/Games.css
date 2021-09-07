@@ -12,7 +12,7 @@
 
 .title-message {
     display: flex;
-    /* justify-content: center; */
+    justify-content:space-between;
     align-items: center;
     font-size: 40px;
     font-weight: 900;
@@ -136,6 +136,13 @@
     margin-top: 2px;
     margin-bottom: 2px;
 }
+
+.sort-btn {
+    font-size: 20px;
+    font-weight: 300;
+    margin-right: 20px;
+}
+
 
 @media only screen and (max-width: 1440px) {
   .map-container-games {

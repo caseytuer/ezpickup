@@ -8,7 +8,7 @@
 
 .comment-container {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 10px;
@@ -26,13 +26,14 @@
     align-items: center;
     padding: 10px;
     margin-right: 20px;
-    width: 100px;
+    width: 10%;
 }
 
 .comment-user-avatar {
     width: 70px;
     height: 70px;
     border-radius: 100px;
+    margin-bottom: 10px;
 }
 
 .add-comment-text-area {
@@ -106,5 +107,34 @@
 }
 
 .comment-content {
-    width: 90%
+    width: 700px;
+    overflow-wrap: break-word;
+    overflow-y: hidden;
+}
+
+.comment-and-user {
+    width: 100%;
+}
+
+.comment-username {
+    font-weight: 900;
+}
+
+@media only screen and (max-width: 1600px) {
+    .comment-content {
+    width: 500px;
+}
+}
+
+@media only screen and (max-width: 1350px) {
+    .comment-content {
+    width: 400px;
+    }   
+   
+}
+
+@media only screen and (max-width: 1024px) {
+    .comments-container {
+        width: 100%;
+    }
 }

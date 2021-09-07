@@ -72,7 +72,7 @@ export const deleteComment = (id) => async (dispatch) => {
     const response = await fetch(`/api/comments/${id}`, {
         method: 'DELETE',
     })
-    console.log(response)
+    // console.log(response)
     if (response.ok) {
         await dispatch(removeComment(id));
         return response

@@ -130,6 +130,7 @@ const Comments = ({ users }) => {
         penEditIconComment.setAttribute('src', penIcon)
     }
 
+   
 
     return (
         <div className="comments-container">
@@ -141,9 +142,15 @@ const Comments = ({ users }) => {
                 to Join the Conversation
             </div>
             }
+            <div className="form-errors-container">
+                {errors && errors.map((error, idx) => (
+                    <div className="form-errors" key={idx}>{error}</div>
+                ))}
+            </div>
             {user && <form onSubmit={handleSubmit}
             >
                 <textarea
+                wrap='hard'
                 className="add-comment-text-area"
                 placeholder="Leave a comment"
                 value={comment}
@@ -160,13 +167,12 @@ const Comments = ({ users }) => {
                 <div className="user-avatar-and-name">
                     <img src={commentUser(comment)?.profile_image} alt=""
                     className="comment-user-avatar"></img>
-                    <div>{commentUser(comment)?.username}</div>
                 </div>
                 <div
                     className="edit-comment-box"
-                >
+                    >
                 {comment.user_id === userId &&
-                <div 
+                <div className="comment-btns"
                 >
                         <img 
                         onMouseOver={e => hoverTrashIcon(comment)}
@@ -203,6 +209,7 @@ const Comments = ({ users }) => {
                     <div 
                         id={`comment-content-${comment.id}`}
                         className="comment-content">
+                            <div className="comment-username">{commentUser(comment)?.username}</div>
                         {comment.comment}
                     </div>
                 </div>

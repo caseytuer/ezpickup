@@ -16,7 +16,7 @@ def seed_users():
         full_name='Michael Jordan', username='jordan_the_goat', email='michaeljordan@gmail.com', password='password', profile_image='https://randomuser.me/api/portraits/men/80.jpg'
     )
     lebrons_hairline = User(
-        full_name='Lebron James', username='lebrons_hairline', email='lb_james@gmail.com', password='password', profile_image='https://randomuser.me/api/portraits/men/34.jpg'
+        full_name='Lebron James', username='LibraLivin', email='lb_james@gmail.com', password='password', profile_image='https://randomuser.me/api/portraits/men/34.jpg'
     )
     dennis = User(
         full_name='Dennis Reynolds', username='5StarMan', email='dennis@gmail.com', password='password', profile_image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpON7kMgv2iswG7t23eCbr0pgtV1kyOQHpAA&usqp=CAU'

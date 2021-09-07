@@ -6,6 +6,19 @@ from app.forms import CommentForm
 comments_routes = Blueprint('/comments', __name__)
 
 
+def validation_errors_to_error_messages(validation_errors):
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            words = field.split('_')
+            capwords = []
+            for w in words:
+                capwords.append(w.capitalize())
+            string = (' ').join(capwords)
+            errorMessages.append(f'{string} : {error}')
+    return errorMessages
+
+
 @comments_routes.route('/', methods=['GET'])
 def get_all_comments():
     all_comments = Comment.query.all()
@@ -32,7 +45,7 @@ def create_comment(id):
         db.session.commit()
         return comment.to_dict()
     else:
-        return {'error': 'something went wrong'}, 401
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @comments_routes.route('/<int:id>', methods=['PUT'])
@@ -47,7 +60,7 @@ def update_comment(id):
         db.session.commit()
         return comment.to_dict()
     else:
-        return {'error': 'something went wrong'}, 401
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @comments_routes.route('/<int:id>', methods=['DELETE'])
@@ -58,4 +71,4 @@ def delete_comment(id):
         db.session.commit()
         return {'message': 'comment deleted'}
     else:
-        return {'message': 'something went wrong'}
+        return {'message': 'something went wrong'}, 404
