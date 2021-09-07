@@ -8,6 +8,7 @@ import './Games.css'
 const Games = () => {
 
     const [users] = useState([]);
+    const [sortType, setSortType] = useState('new');
 
     const dispatch = useDispatch()
     const games = useSelector(state => state.game)
@@ -17,8 +18,22 @@ const Games = () => {
         gamesArr.push(games[key])
     }
 
-    const skillLevel = ['none', 'Beginner', 'Intermediate', 'Advanced', 'All Skills Welcome']
+    let sortedGames;  
+    if (sortType === 'new') {
+        sortedGames = gamesArr.slice().sort(function (a, b) {
+        let dateA = new Date(a.created_at), dateB = new Date(b.created_at);
+        return dateB - dateA
+        })
+    } else {
+        sortedGames = gamesArr.slice().sort(function (a, b) {
+            let dateA = new Date(a.start_time), dateB = new Date(b.start_time);
+            return dateA - dateB
+        })
+    }
+  
+    
 
+    const skillLevel = ['none', 'Beginner', 'Intermediate', 'Advanced', 'All Skills Welcome']
 
     useEffect(() => {
         dispatch(getAllGames())
@@ -44,12 +59,12 @@ const Games = () => {
         }
     }
 
-    const sortedGames = gamesArr.slice().sort(function(a, b) {
-        let dateA = new Date(a.start_time), dateB = new Date(b.start_time);
-        return dateA - dateB
-    })
+    // const sortedGames = gamesArr.slice().sort(function(a, b) {
+    //     let dateA = new Date(a.start_time), dateB = new Date(b.start_time);
+    //     return dateA - dateB
+    // })
 
-    console.log(sortedGames)
+    // console.log(sortedGames)
 
     return (
         <>
@@ -59,8 +74,17 @@ const Games = () => {
                     <Map className="games-map" gamesArr={gamesArr}/>
                 </div>
                 <div className="games-container">
-                    <div className="title-message">Upcoming Games</div>
-                    {sortedGames.map((game, idx) => 
+                    <div className="title-message">Find Games
+                    <div className="sort-btn">{'Sort:   '}
+                    <span>
+                        <select onChange={(e) => setSortType(e.target.value)} className="sort-dropdown">
+                            <option value="new">New</option>
+                            <option value="chronological">Chronological</option>
+                        </select>
+                    </span>
+                    </div>
+                    </div>
+                    {sortedGames?.map((game, idx) => 
                         <div key={idx} className="game-container-wrapper">
 
                             <Link className="game-container"
