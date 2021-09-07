@@ -44,6 +44,12 @@ const Games = () => {
         }
     }
 
+    const sortedGames = gamesArr.slice().sort(function(a, b) {
+        let dateA = new Date(a.start_time), dateB = new Date(b.start_time);
+        return dateA - dateB
+    })
+
+    console.log(sortedGames)
 
     return (
         <>
@@ -53,8 +59,8 @@ const Games = () => {
                     <Map className="games-map" gamesArr={gamesArr}/>
                 </div>
                 <div className="games-container">
-                    <div className="title-message">Find Games</div>
-                    {gamesArr.map((game, idx) => 
+                    <div className="title-message">Upcoming Games</div>
+                    {sortedGames.map((game, idx) => 
                         <div key={idx} className="game-container-wrapper">
 
                             <Link className="game-container"

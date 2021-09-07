@@ -268,6 +268,7 @@ const Game = () => {
                             }
                 <div className="game-page-map-container">
                     <Map game={game} />
+                    <div className="game-page-address">{`${game?.address}, ${game?.city}, ${game?.state}`}</div>
                 </div>
             <div className="comments-canvas">
                 <Comments users={users}/>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { updateGame } from '../../store/game';
 import DateTime from 'react-datetime';
+import Geocode from 'react-geocode';
 import './GameForm.css'
 import 'react-datetime/css/react-datetime.css'
 
@@ -63,8 +64,6 @@ export const GameFormEdit = () => {
     const setCityETV = (e) => setCity(e.target.value)
     const setStateETV = (e) => setState(e.target.value)
     const setCountryETV = (e) => setCountry(e.target.value)
-    const setLatETV = (e) => setLat(e.target.value)
-    const setLngETV = (e) => setLng(e.target.value)
 
     const onFormSubmit = async (e) => {
         e.preventDefault();
@@ -107,6 +106,21 @@ export const GameFormEdit = () => {
         required: true,
         placeholder: 'End Time',
         className: "form-input-field",
+    }
+
+    const MAPS_API_KEY = process.env.REACT_APP_MAPS_API_KEY;
+
+    Geocode.setApiKey(MAPS_API_KEY);
+
+    if (address && city && state) {
+        Geocode.fromAddress(`${address}, ${city}, ${state}`).then(
+            (response) => {
+                const { lat, lng } = response.results[0].geometry.location;
+                setLat(lat);
+                setLng(lng);
+            }
+
+        )
     }
 
 
@@ -213,24 +227,6 @@ export const GameFormEdit = () => {
                             placeholder='Country'
                             value={country}
                             onChange={setCountryETV}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            className="form-input-field"
-                            required
-                            placeholder='Latitude'
-                            value={lat}
-                            onChange={setLatETV}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            className="form-input-field"
-                            placeholder='Longitude'
-                            required
-                            value={lng}
-                            onChange={setLngETV}
                         />
                     </div>
                     <div>

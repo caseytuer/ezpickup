@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createGame } from '../../store/game';
+import { createPlayer } from '../../store/player';
 import DateTime from 'react-datetime';
+import Geocode from 'react-geocode'
 import './GameForm.css'
 import 'react-datetime/css/react-datetime.css'
 
@@ -61,8 +63,23 @@ export const GameForm = () => {
         }
         const data = await dispatch(createGame(payload));
         if (data && data.id) {
-            history.push(`/games/${data.id}`);
-                window.location.reload();
+            history.push(`/games`);
+            const payload = {
+                player_id: data.creator_id,
+                game_id: data.id
+            }
+            setErrors([]);
+            dispatch(createPlayer(payload))
+            .then((data) => {
+                if (data && data.id) {
+                    history.push(`/games/${data.game_id}`);
+                    window.location.reload();
+                    }
+                }).catch(async (res) => {
+                    const data = res;
+                    if (data && data.errors) setErrors(data.errors)
+                })
+
         } else {
             setErrors(data)
         }
@@ -88,6 +105,21 @@ export const GameForm = () => {
         required: true,
         placeholder: 'End Time',
         className: "form-input-field",
+    }
+
+    const MAPS_API_KEY = process.env.REACT_APP_MAPS_API_KEY;
+
+    Geocode.setApiKey(MAPS_API_KEY);
+
+    if (address && city && state) {
+        Geocode.fromAddress(`${address}, ${city}, ${state}`).then(
+            (response) => {
+                const { lat, lng } = response.results[0].geometry.location;
+                setLat(lat);
+                setLng(lng);
+            }
+        
+        )
     }
 
     return (
@@ -190,24 +222,6 @@ export const GameForm = () => {
                             placeholder='Country'
                             value={country}
                             onChange={setCountryETV}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            className="form-input-field"
-                            required
-                            placeholder='Latitude'
-                            value={lat}
-                            onChange={setLatETV}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            className="form-input-field"
-                            placeholder='Longitude'
-                            required
-                            value={lng}
-                            onChange={setLngETV}
                         />
                     </div>
                     <div>

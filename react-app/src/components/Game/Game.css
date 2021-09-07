@@ -136,6 +136,16 @@
     margin-bottom: 100px;
 }
 
+.game-page-address {
+    display: flex;
+    justify-content: center;
+    background-color: #FFD700;
+    padding: 5px;
+    border-radius: 4px;
+    width: auto;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
 .game-description-user {
     display: flex;
     justify-content: center;
@@ -150,34 +160,12 @@
     margin-bottom: 15px;
 }
 
-/* #game-card-chalkboard {
-    position: absolute;
-    top: 60%;
-    left: 32%;
-    z-index: -1;
-    width: 50%;
-    height: 75%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-} */
 
 .game-details-container {
     width: 50%;
-    /* height: 110%;
-    background-image: url(../../assets/images/chalkboard.png);
-    background-size: 100%;
-    background-position: contain;
-    background-repeat: no-repeat; */
+    
 }
 
-/* .chalkboard {
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    top: -100px;
-} */
 
 .game-page-map-container {
     margin-top: 20px;
@@ -260,6 +248,7 @@
 }
 
 .game-info-container {
+    width: 100%;
     padding: 20px;
     display: flex;
     align-items: center;

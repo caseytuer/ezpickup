@@ -26,5 +26,5 @@ class GameForm(FlaskForm):
     country = StringField('country', validators=[validators.length(min=1, max=25, message='must be less than 25 characters')])
     lat = FloatField('lat', validators=[DataRequired()])
     lng = FloatField('lng', validators=[DataRequired()])
-    start_time = DateTimeField('start_time', validators=[DataRequired(), validate_date_in_future])
-    end_time = DateTimeField('end_time', validators=[DataRequired(), validate_enddate, validate_date_in_future])
+    start_time = DateTimeField('start_time', validators=[DataRequired('must be a valid date/time'), validate_date_in_future])
+    end_time = DateTimeField('end_time', validators=[DataRequired('must be a valid date/time'), validate_enddate, validate_date_in_future])

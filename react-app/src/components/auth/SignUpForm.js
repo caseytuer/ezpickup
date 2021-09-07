@@ -60,7 +60,7 @@ const SignUpForm = () => {
         <form onSubmit={onSignUp}>
           <div>
             {errors && errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              <div className="form-errors" key={ind}>{error}</div>
               ))}
           </div>
               {profileImage && 
@@ -124,7 +124,7 @@ const SignUpForm = () => {
           </div>
           <div>
             <input
-              placeholder="Profile Image URL"
+              placeholder="Profile Image URL (optional)"
               className="form-input-field"
               type='text'
               name='Profile Image'
