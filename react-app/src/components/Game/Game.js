@@ -108,9 +108,12 @@ const Game = () => {
 
 
     const handleDelete = () => {
+        console.log(gameId)
         const deleted = dispatch(deleteGame(gameId))
         if (deleted) {
+            console.log('yes')
             history.push('/games')
+            window.location.reload();
         }
     }
 
