@@ -22,7 +22,7 @@ class Game(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
 
     user_relation = db.relationship('User', back_populates='game_relation')
-    player_relation = db.relationship('Player', back_populates='game_relation')
+    player_relation = db.relationship('Player', back_populates='game_relation', cascade='all, delete-orphan')
     comment_relation = db.relationship('Comment', back_populates='game_relation')
 
     def to_dict(self):
