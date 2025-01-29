@@ -1,5 +1,5 @@
 # ezpickup
-*By Casey Tuer - [Visit ezpickup](http://ezpickup.herokuapp.com/)*
+*By Casey Tuer - [Visit ezpickup](https://ezpickup.onrender.com/)*
 
 **Table of Contents**
 * [ezpickup introduction](#ezpickup-introduction)
